@@ -1,0 +1,19 @@
+{%- comment -%}
+  Prints a collection title in the current language.
+  Uses locales voltix.collections.<handle> when present, otherwise the collection's own title.
+
+  Accepts:
+  - collection {Collection}
+
+  Usage:
+  {% render 'voltix-collection-title', collection: dept %}
+{%- endcomment -%}
+{%- liquid
+  assign vx_key = 'voltix.collections.' | append: collection.handle
+  assign vx_title = vx_key | t
+  if vx_title contains 'ranslation missing' or vx_title == vx_key
+    echo collection.title | escape
+  else
+    echo vx_title
+  endif
+-%}

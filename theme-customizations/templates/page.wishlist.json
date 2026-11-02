@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "voltix-wishlist",
+      "settings": {
+        "heading": "My wishlist",
+        "empty_text": "Your wishlist is empty. Tap the heart on any product to save it here."
+      }
+    }
+  },
+  "order": ["main"]
+}

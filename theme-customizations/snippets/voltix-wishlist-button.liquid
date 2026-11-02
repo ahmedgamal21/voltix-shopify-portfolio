@@ -1,0 +1,21 @@
+{%- comment -%}
+  Heart button that adds or removes a product from the VOLTIX wishlist.
+
+  Accepts:
+  - product {Product}: the product object
+
+  Usage (inside a product card or the product page):
+  {% render 'voltix-wishlist-button', product: product %}
+{%- endcomment -%}
+{%- if product != blank -%}
+  <voltix-wishlist-button
+    class="vx-wish-btn"
+    data-handle="{{ product.handle }}"
+    data-label-add="{{ 'voltix.add_to_wishlist' | t: title: product.title | escape }}"
+    data-label-remove="{{ 'voltix.remove_from_wishlist' | t: title: product.title | escape }}"
+  >
+    <button type="button" aria-pressed="false" aria-label="{{ 'voltix.add_to_wishlist' | t: title: product.title | escape }}">
+      {% render 'voltix-icon', icon: 'heart', size: 18 %}
+    </button>
+  </voltix-wishlist-button>
+{%- endif -%}

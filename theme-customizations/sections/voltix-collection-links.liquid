@@ -1,0 +1,53 @@
+{%- comment -%}
+  VOLTIX subcategory pills for collection pages.
+  Works from product tags: dept-<handle> for the department, sub-<handle> for subcategories.
+{%- endcomment -%}
+{%- liquid
+  assign dept_handle = ''
+  for tag in collection.all_tags
+    assign prefix = tag | slice: 0, 5
+    if prefix == 'dept-'
+      assign dept_handle = tag | remove_first: 'dept-'
+      break
+    endif
+  endfor
+  if dept_handle != blank
+    assign dept = collections[dept_handle]
+  endif
+-%}
+{%- if dept != blank and dept.all_tags.size > 0 -%}
+  <nav class="vx-section vx-sublinks vx-wrap" aria-label="{{ dept.title | escape }}">
+    <ul class="vx-sublinks__list" role="list">
+      <li>
+        <a href="{{ dept.url }}" class="vx-pill{% if collection.handle == dept.handle %} is-active{% endif %}" {% if collection.handle == dept.handle %}aria-current="page"{% endif %}>
+          {%- capture dt -%}{% render 'voltix-collection-title', collection: dept %}{%- endcapture -%}
+          {{ 'voltix.all_title' | t: title: dt }}
+        </a>
+      </li>
+      {%- for tag in dept.all_tags -%}
+        {%- assign prefix = tag | slice: 0, 4 -%}
+        {%- if prefix == 'sub-' -%}
+          {%- assign sub_handle = tag | remove_first: 'sub-' -%}
+          {%- assign sub = collections[sub_handle] -%}
+          {%- if sub != blank -%}
+            <li>
+              <a href="{{ sub.url }}" class="vx-pill{% if collection.handle == sub.handle %} is-active{% endif %}" {% if collection.handle == sub.handle %}aria-current="page"{% endif %}>
+                {% render 'voltix-collection-title', collection: sub %}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VOLTIX subcategory links",
+  "tag": "div",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": [],
+  "presets": [{ "name": "VOLTIX subcategory links" }]
+}
+{% endschema %}

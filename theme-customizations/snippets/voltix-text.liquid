@@ -1,0 +1,12 @@
+{%- comment -%}
+  Prints a merchant setting, or a translated default from locales (voltix.*) when the setting is empty.
+  This keeps English and Arabic copy in the locale files while still allowing edits in the theme editor.
+
+  Accepts:
+  - value {String}: the setting value
+  - key {String}: locale key used when value is blank
+
+  Usage:
+  {% render 'voltix-text', value: section.settings.heading, key: 'voltix.cats_heading' %}
+{%- endcomment -%}
+{%- if value != blank -%}{{ value | escape }}{%- else -%}{{ key | t }}{%- endif -%}

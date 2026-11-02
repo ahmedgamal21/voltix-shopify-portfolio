@@ -1,0 +1,63 @@
+{%- comment -%}
+  VOLTIX promo banners (2 per row on desktop, stacked on mobile).
+  Uses the brand's diagonal stripe motif. No discount is shown unless you type one.
+{%- endcomment -%}
+<section class="vx-section vx-promos vx-wrap">
+  <div class="vx-promos__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign kp = 'voltix.p' | append: forloop.index
+        assign kp_e = kp | append: '_eyebrow'
+        assign kp_h = kp | append: '_heading'
+        assign kp_c = kp | append: '_cta'
+      -%}
+      <a
+        class="vx-promo vx-promo--{{ block.settings.style }}"
+        href="{% if block.settings.collection != blank %}{{ block.settings.collection.url }}{% else %}{{ block.settings.link | default: '#' }}{% endif %}"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'vx-promo__image', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          <span class="vx-stripes" aria-hidden="true"><span></span><span></span></span>
+        {%- endif -%}
+        <span class="vx-promo__eyebrow">{% render 'voltix-text', value: block.settings.eyebrow, key: kp_e %}</span>
+        <span class="vx-promo__heading">{% render 'voltix-text', value: block.settings.heading, key: kp_h %}</span>
+        <span class="vx-promo__cta">{% render 'voltix-text', value: block.settings.button_label, key: kp_c %}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VOLTIX promo banners",
+  "tag": "div",
+  "max_blocks": 4,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        { "type": "select", "id": "style", "label": "Style", "default": "blue", "options": [ { "value": "blue", "label": "Electric blue" }, { "value": "navy", "label": "Dark navy" } ] },
+        { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Smart Home & Security" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Make every room smarter" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop now" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "link", "label": "Link (if no collection)" },
+        { "type": "image_picker", "id": "image", "label": "Background image (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VOLTIX promo banners",
+      "blocks": [
+        { "type": "banner", "settings": { "style": "blue" } },
+        { "type": "banner", "settings": { "style": "navy", "eyebrow": "Air Conditioning", "heading": "Stay cool all summer" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

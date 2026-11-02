@@ -1,0 +1,755 @@
+{
+  "sections": {
+    "voltix_hero": {
+      "type": "voltix-hero",
+      "blocks": {
+        "slide1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": "shopify://collections/all",
+            "button2_label": "",
+            "button2_link": "shopify://collections",
+            "illustration": "tvs-home-entertainment"
+          }
+        },
+        "slide2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": "shopify://collections/personal-audio",
+            "button2_label": "",
+            "button2_link": "shopify://collections/earbuds",
+            "illustration": "personal-audio"
+          }
+        },
+        "slide3": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": "shopify://collections/smartphones",
+            "button2_label": "",
+            "button2_link": "shopify://collections/chargers-cables",
+            "illustration": "mobiles-wearables"
+          }
+        }
+      },
+      "block_order": [
+        "slide1",
+        "slide2",
+        "slide3"
+      ],
+      "settings": {
+        "label": "",
+        "autoplay": 6,
+        "show_tiles": true,
+        "tile1_eyebrow": "",
+        "tile1_heading": "",
+        "tile1_link_label": "",
+        "tile1_collection": "gaming",
+        "tile2_eyebrow": "",
+        "tile2_heading": "",
+        "tile2_link_label": "",
+        "tile2_collection": "small-kitchen-appliances"
+      }
+    },
+    "voltix_services": {
+      "type": "voltix-services",
+      "blocks": {
+        "s1": {
+          "type": "service",
+          "settings": {
+            "icon": "delivery",
+            "title": "",
+            "text": ""
+          }
+        },
+        "s2": {
+          "type": "service",
+          "settings": {
+            "icon": "shield",
+            "title": "",
+            "text": ""
+          }
+        },
+        "s3": {
+          "type": "service",
+          "settings": {
+            "icon": "badge",
+            "title": "",
+            "text": ""
+          }
+        },
+        "s4": {
+          "type": "service",
+          "settings": {
+            "icon": "support",
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "label": ""
+      }
+    },
+    "voltix_categories": {
+      "type": "voltix-category-grid",
+      "blocks": {
+        "cat_01": {
+          "type": "category",
+          "settings": {
+            "collection": "tvs-home-entertainment",
+            "icon": "tv"
+          }
+        },
+        "cat_02": {
+          "type": "category",
+          "settings": {
+            "collection": "mobiles-wearables",
+            "icon": "mobile"
+          }
+        },
+        "cat_03": {
+          "type": "category",
+          "settings": {
+            "collection": "computers-tablets",
+            "icon": "computer"
+          }
+        },
+        "cat_04": {
+          "type": "category",
+          "settings": {
+            "collection": "gaming",
+            "icon": "gaming"
+          }
+        },
+        "cat_05": {
+          "type": "category",
+          "settings": {
+            "collection": "large-home-appliances",
+            "icon": "large-appliance"
+          }
+        },
+        "cat_06": {
+          "type": "category",
+          "settings": {
+            "collection": "small-kitchen-appliances",
+            "icon": "kitchen"
+          }
+        },
+        "cat_07": {
+          "type": "category",
+          "settings": {
+            "collection": "air-conditioning",
+            "icon": "air-conditioning"
+          }
+        },
+        "cat_08": {
+          "type": "category",
+          "settings": {
+            "collection": "personal-audio",
+            "icon": "audio"
+          }
+        },
+        "cat_09": {
+          "type": "category",
+          "settings": {
+            "collection": "cleaning-floor-care",
+            "icon": "cleaning"
+          }
+        },
+        "cat_10": {
+          "type": "category",
+          "settings": {
+            "collection": "cameras-imaging",
+            "icon": "camera"
+          }
+        },
+        "cat_11": {
+          "type": "category",
+          "settings": {
+            "collection": "smart-home-security",
+            "icon": "smart-home"
+          }
+        },
+        "cat_12": {
+          "type": "category",
+          "settings": {
+            "collection": "beauty-personal-care",
+            "icon": "beauty"
+          }
+        },
+        "cat_13": {
+          "type": "category",
+          "settings": {
+            "collection": "health-fitness",
+            "icon": "fitness"
+          }
+        },
+        "cat_14": {
+          "type": "category",
+          "settings": {
+            "collection": "toys-kids",
+            "icon": "toys"
+          }
+        },
+        "cat_15": {
+          "type": "category",
+          "settings": {
+            "collection": "travel-lifestyle",
+            "icon": "travel"
+          }
+        },
+        "cat_16": {
+          "type": "category",
+          "settings": {
+            "collection": "office-supplies",
+            "icon": "office"
+          }
+        }
+      },
+      "block_order": [
+        "cat_01",
+        "cat_02",
+        "cat_03",
+        "cat_04",
+        "cat_05",
+        "cat_06",
+        "cat_07",
+        "cat_08",
+        "cat_09",
+        "cat_10",
+        "cat_11",
+        "cat_12",
+        "cat_13",
+        "cat_14",
+        "cat_15",
+        "cat_16"
+      ],
+      "settings": {
+        "heading": "",
+        "link_label": "",
+        "link": "shopify://collections",
+        "columns_desktop": 8,
+        "style": "illustrations"
+      }
+    },
+    "product_list_tvs": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_YFtzcL": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_MWeP9V": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_YFtzcL",
+            "product_list_button_MWeP9V"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_677WP3": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_YXxMTj": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_JQzVV4": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_677WP3",
+            "product_title_YXxMTj",
+            "price_JQzVV4"
+          ]
+        }
+      },
+      "name": "t:names.product_list",
+      "settings": {
+        "collection": "televisions",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "voltix_promos": {
+      "type": "voltix-promo-banners",
+      "blocks": {
+        "b1": {
+          "type": "banner",
+          "settings": {
+            "style": "blue",
+            "eyebrow": "",
+            "heading": "",
+            "button_label": "",
+            "collection": "smart-home-security"
+          }
+        },
+        "b2": {
+          "type": "banner",
+          "settings": {
+            "style": "navy",
+            "eyebrow": "",
+            "heading": "",
+            "button_label": "",
+            "collection": "air-conditioning"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2"
+      ],
+      "settings": {}
+    },
+    "product_list_phones": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_YFtzcL": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_MWeP9V": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_YFtzcL",
+            "product_list_button_MWeP9V"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_677WP3": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_YXxMTj": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_JQzVV4": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_677WP3",
+            "product_title_YXxMTj",
+            "price_JQzVV4"
+          ]
+        }
+      },
+      "name": "t:names.product_list",
+      "settings": {
+        "collection": "smartphones",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "voltix_brands": {
+      "type": "voltix-brands",
+      "blocks": {
+        "brand_01": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Sony"
+          }
+        },
+        "brand_02": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Samsung"
+          }
+        },
+        "brand_03": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Apple"
+          }
+        },
+        "brand_04": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Philips"
+          }
+        },
+        "brand_05": {
+          "type": "brand",
+          "settings": {
+            "vendor": "LG"
+          }
+        },
+        "brand_06": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Bosch"
+          }
+        },
+        "brand_07": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Dyson"
+          }
+        },
+        "brand_08": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Google"
+          }
+        },
+        "brand_09": {
+          "type": "brand",
+          "settings": {
+            "vendor": "JBL"
+          }
+        },
+        "brand_10": {
+          "type": "brand",
+          "settings": {
+            "vendor": "Logitech"
+          }
+        }
+      },
+      "block_order": [
+        "brand_01",
+        "brand_02",
+        "brand_03",
+        "brand_04",
+        "brand_05",
+        "brand_06",
+        "brand_07",
+        "brand_08",
+        "brand_09",
+        "brand_10"
+      ],
+      "settings": {
+        "heading": ""
+      }
+    },
+    "voltix_newsletter": {
+      "type": "voltix-newsletter",
+      "settings": {
+        "heading": "",
+        "text": "",
+        "button_label": "",
+        "success": ""
+      }
+    }
+  },
+  "order": [
+    "voltix_hero",
+    "voltix_services",
+    "voltix_categories",
+    "product_list_tvs",
+    "voltix_promos",
+    "product_list_phones",
+    "voltix_brands",
+    "voltix_newsletter"
+  ]
+}

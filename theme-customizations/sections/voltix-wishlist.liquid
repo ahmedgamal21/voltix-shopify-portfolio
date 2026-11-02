@@ -1,0 +1,20 @@
+{%- comment -%}
+  VOLTIX wishlist page. Products are read from the shopper's browser.
+  Assign this section through templates/page.wishlist.json.
+{%- endcomment -%}
+<section class="vx-section vx-wishlist vx-wrap">
+  <h1 class="vx-section__title">{{ section.settings.heading | escape }}</h1>
+  {% render 'voltix-wishlist-grid', empty_text: section.settings.empty_text %}
+</section>
+
+{% schema %}
+{
+  "name": "VOLTIX wishlist",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "My wishlist" },
+    { "type": "text", "id": "empty_text", "label": "Empty message", "default": "Your wishlist is empty. Tap the heart on any product to save it here." }
+  ],
+  "presets": [{ "name": "VOLTIX wishlist" }]
+}
+{% endschema %}

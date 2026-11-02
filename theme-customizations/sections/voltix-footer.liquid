@@ -1,0 +1,96 @@
+{%- comment -%}
+  VOLTIX footer: navy background, logo, shop links, customer care, account, policies.
+{%- endcomment -%}
+<footer class="vx-footer">
+  <div class="vx-footer__top vx-wrap">
+    <div class="vx-footer__brand">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
+        <img src="{{ 'voltix-logo-horizontal-white.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1192" height="319" loading="lazy" class="vx-footer__logo">
+      </a>
+      <p class="vx-footer__about">{% render 'voltix-text', value: section.settings.about, key: 'voltix.footer_about' %}</p>
+    </div>
+
+    <nav class="vx-footer__col" aria-label="{{ 'voltix.footer_shop' | t }}">
+      <h2 class="vx-footer__heading">{% render 'voltix-text', value: section.settings.shop_heading, key: 'voltix.footer_shop' %}</h2>
+      <ul role="list">
+        {%- for c in section.settings.shop_collections -%}
+          <li><a href="{{ c.url }}">{% render 'voltix-collection-title', collection: c %}</a></li>
+        {%- else -%}
+          <li><a href="{{ routes.collections_url }}">All departments</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <nav class="vx-footer__col" aria-label="{{ 'voltix.footer_care' | t }}">
+      <h2 class="vx-footer__heading">{{ 'voltix.footer_care' | t }}</h2>
+      <ul role="list">
+        {%- if pages['contact'] != blank -%}
+          <li><a href="{{ pages['contact'].url }}">{{ 'voltix.contact' | t }}</a></li>
+        {%- endif -%}
+        {%- if shop.shipping_policy != blank -%}
+          <li><a href="{{ shop.shipping_policy.url }}">{{ 'voltix.shipping_policy' | t }}</a></li>
+        {%- endif -%}
+        {%- if shop.refund_policy != blank -%}
+          <li><a href="{{ shop.refund_policy.url }}">{{ 'voltix.refund_policy' | t }}</a></li>
+        {%- endif -%}
+        <li><a href="{{ routes.search_url }}">{{ 'voltix.search' | t }}</a></li>
+      </ul>
+    </nav>
+
+    <nav class="vx-footer__col" aria-label="{{ 'voltix.footer_account' | t }}">
+      <h2 class="vx-footer__heading">{{ 'voltix.footer_account' | t }}</h2>
+      <ul role="list">
+        {%- if shop.customer_accounts_enabled -%}
+          <li><a href="{{ routes.account_url }}">{{ 'voltix.account_orders' | t }}</a></li>
+        {%- endif -%}
+        <li><a href="{{ routes.root_url | append: '/pages/wishlist' | replace: '//', '/' }}">{{ 'voltix.wishlist' | t }}</a></li>
+        <li><a href="{{ routes.cart_url }}">{{ 'voltix.cart' | t }}</a></li>
+      </ul>
+    </nav>
+
+    <nav class="vx-footer__col" aria-label="{{ 'voltix.footer_company' | t }}">
+      <h2 class="vx-footer__heading">{{ 'voltix.footer_company' | t }}</h2>
+      <ul role="list">
+        {%- for link in section.settings.company_menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+        {%- if shop.privacy_policy != blank -%}
+          <li><a href="{{ shop.privacy_policy.url }}">{{ 'voltix.privacy' | t }}</a></li>
+        {%- endif -%}
+        {%- if shop.terms_of_service != blank -%}
+          <li><a href="{{ shop.terms_of_service.url }}">{{ 'voltix.terms' | t }}</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="vx-footer__bottom">
+    <div class="vx-wrap vx-footer__bottom-inner">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. {% render 'voltix-text', value: section.settings.note, key: 'voltix.footer_note' %}</span>
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <ul class="vx-footer__pay" role="list" aria-label="{{ 'voltix.payment_methods' | t }}">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "VOLTIX footer",
+  "tag": "div",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "text", "id": "about", "label": "About text", "default": "Electronics, technology and home appliances for Kuwait." },
+    { "type": "text", "id": "shop_heading", "label": "Shop column heading", "default": "Shop" },
+    { "type": "collection_list", "id": "shop_collections", "label": "Shop column collections", "limit": 8 },
+    { "type": "link_list", "id": "company_menu", "label": "Company column menu (optional)" },
+    { "type": "text", "id": "note", "label": "Bottom note", "default": "Portfolio demonstration store." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true }
+  ],
+  "presets": [{ "name": "VOLTIX footer" }]
+}
+{% endschema %}

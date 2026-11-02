@@ -1,0 +1,19 @@
+{
+  "voltix_footer": {
+    "type": "voltix-footer",
+    "settings": {
+      "about": "",
+      "shop_heading": "",
+      "shop_collections": [
+        "tvs-home-entertainment",
+        "mobiles-wearables",
+        "computers-tablets",
+        "gaming",
+        "large-home-appliances",
+        "small-kitchen-appliances"
+      ],
+      "note": "",
+      "show_payment_icons": true
+    }
+  }
+}

@@ -1,0 +1,474 @@
+[
+  {
+    "title": "Air Conditioning",
+    "handle": "air-conditioning",
+    "products": 55,
+    "subcategories": [
+      {
+        "title": "Split AC",
+        "handle": "split-ac",
+        "products": 14
+      },
+      {
+        "title": "Window AC",
+        "handle": "window-ac",
+        "products": 13
+      },
+      {
+        "title": "Portable AC",
+        "handle": "portable-ac",
+        "products": 14
+      },
+      {
+        "title": "Air Purifiers",
+        "handle": "air-purifiers",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "TVs & Home Entertainment",
+    "handle": "tvs-home-entertainment",
+    "products": 71,
+    "subcategories": [
+      {
+        "title": "Televisions",
+        "handle": "televisions",
+        "products": 17
+      },
+      {
+        "title": "Projectors",
+        "handle": "projectors",
+        "products": 14
+      },
+      {
+        "title": "Soundbars & Home Theater",
+        "handle": "soundbars-home-theater",
+        "products": 14
+      },
+      {
+        "title": "Streaming Devices",
+        "handle": "streaming-devices",
+        "products": 13
+      },
+      {
+        "title": "TV Accessories",
+        "handle": "tv-accessories",
+        "products": 13
+      }
+    ]
+  },
+  {
+    "title": "Mobiles & Wearables",
+    "handle": "mobiles-wearables",
+    "products": 72,
+    "subcategories": [
+      {
+        "title": "Smartphones",
+        "handle": "smartphones",
+        "products": 16
+      },
+      {
+        "title": "Smart Watches",
+        "handle": "smart-watches",
+        "products": 14
+      },
+      {
+        "title": "Phone Cases",
+        "handle": "phone-cases",
+        "products": 14
+      },
+      {
+        "title": "Chargers & Cables",
+        "handle": "chargers-cables",
+        "products": 14
+      },
+      {
+        "title": "Power Banks",
+        "handle": "power-banks",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Computers & Tablets",
+    "handle": "computers-tablets",
+    "products": 97,
+    "subcategories": [
+      {
+        "title": "Laptops",
+        "handle": "laptops",
+        "products": 14
+      },
+      {
+        "title": "Desktops & All-in-Ones",
+        "handle": "desktops-all-in-ones",
+        "products": 14
+      },
+      {
+        "title": "Tablets",
+        "handle": "tablets",
+        "products": 14
+      },
+      {
+        "title": "Monitors",
+        "handle": "monitors",
+        "products": 14
+      },
+      {
+        "title": "Printers",
+        "handle": "printers",
+        "products": 14
+      },
+      {
+        "title": "Storage",
+        "handle": "storage",
+        "products": 13
+      },
+      {
+        "title": "Computer Accessories",
+        "handle": "computer-accessories",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Gaming",
+    "handle": "gaming",
+    "products": 70,
+    "subcategories": [
+      {
+        "title": "Consoles & Accessories",
+        "handle": "consoles-accessories",
+        "products": 14
+      },
+      {
+        "title": "Gaming Laptops",
+        "handle": "gaming-laptops",
+        "products": 14
+      },
+      {
+        "title": "Controllers",
+        "handle": "controllers",
+        "products": 14
+      },
+      {
+        "title": "Gaming Chairs",
+        "handle": "gaming-chairs",
+        "products": 14
+      },
+      {
+        "title": "Gaming Headsets",
+        "handle": "gaming-headsets",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Large Home Appliances",
+    "handle": "large-home-appliances",
+    "products": 84,
+    "subcategories": [
+      {
+        "title": "Refrigerators & Freezers",
+        "handle": "refrigerators-freezers",
+        "products": 14
+      },
+      {
+        "title": "Washing Machines",
+        "handle": "washing-machines",
+        "products": 14
+      },
+      {
+        "title": "Dryers",
+        "handle": "dryers",
+        "products": 14
+      },
+      {
+        "title": "Dishwashers",
+        "handle": "dishwashers",
+        "products": 14
+      },
+      {
+        "title": "Cookers",
+        "handle": "cookers",
+        "products": 14
+      },
+      {
+        "title": "Built-in Ovens",
+        "handle": "built-in-ovens",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Small Kitchen Appliances",
+    "handle": "small-kitchen-appliances",
+    "products": 99,
+    "subcategories": [
+      {
+        "title": "Air Fryers",
+        "handle": "air-fryers",
+        "products": 14
+      },
+      {
+        "title": "Coffee Machines",
+        "handle": "coffee-machines",
+        "products": 16
+      },
+      {
+        "title": "Blenders & Mixers",
+        "handle": "blenders-mixers",
+        "products": 14
+      },
+      {
+        "title": "Microwaves",
+        "handle": "microwaves",
+        "products": 14
+      },
+      {
+        "title": "Kettles",
+        "handle": "kettles",
+        "products": 14
+      },
+      {
+        "title": "Toasters",
+        "handle": "toasters",
+        "products": 13
+      },
+      {
+        "title": "Food Processors",
+        "handle": "food-processors",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Cleaning & Floor Care",
+    "handle": "cleaning-floor-care",
+    "products": 56,
+    "subcategories": [
+      {
+        "title": "Vacuum Cleaners",
+        "handle": "vacuum-cleaners",
+        "products": 14
+      },
+      {
+        "title": "Robot Vacuums",
+        "handle": "robot-vacuums",
+        "products": 14
+      },
+      {
+        "title": "Irons & Steamers",
+        "handle": "irons-steamers",
+        "products": 14
+      },
+      {
+        "title": "Pressure Washers",
+        "handle": "pressure-washers",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Cameras & Imaging",
+    "handle": "cameras-imaging",
+    "products": 70,
+    "subcategories": [
+      {
+        "title": "Cameras",
+        "handle": "cameras",
+        "products": 14
+      },
+      {
+        "title": "Lenses",
+        "handle": "lenses",
+        "products": 14
+      },
+      {
+        "title": "Instant Cameras",
+        "handle": "instant-cameras",
+        "products": 14
+      },
+      {
+        "title": "Camera Accessories",
+        "handle": "camera-accessories",
+        "products": 14
+      },
+      {
+        "title": "Dash Cams",
+        "handle": "dash-cams",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Smart Home & Security",
+    "handle": "smart-home-security",
+    "products": 70,
+    "subcategories": [
+      {
+        "title": "Smart Home Devices",
+        "handle": "smart-home-devices",
+        "products": 14
+      },
+      {
+        "title": "Smart Lighting",
+        "handle": "smart-lighting",
+        "products": 14
+      },
+      {
+        "title": "Smart Locks",
+        "handle": "smart-locks",
+        "products": 14
+      },
+      {
+        "title": "Security Cameras",
+        "handle": "security-cameras",
+        "products": 14
+      },
+      {
+        "title": "Routers & Mesh",
+        "handle": "routers-mesh",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Beauty & Personal Care",
+    "handle": "beauty-personal-care",
+    "products": 56,
+    "subcategories": [
+      {
+        "title": "Hair Styling",
+        "handle": "hair-styling",
+        "products": 14
+      },
+      {
+        "title": "Electric Shavers",
+        "handle": "electric-shavers",
+        "products": 14
+      },
+      {
+        "title": "Skin Care Devices",
+        "handle": "skin-care-devices",
+        "products": 14
+      },
+      {
+        "title": "Oral Care",
+        "handle": "oral-care",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Personal Audio",
+    "handle": "personal-audio",
+    "products": 42,
+    "subcategories": [
+      {
+        "title": "Headphones",
+        "handle": "headphones",
+        "products": 14
+      },
+      {
+        "title": "Earbuds",
+        "handle": "earbuds",
+        "products": 14
+      },
+      {
+        "title": "Bluetooth Speakers",
+        "handle": "bluetooth-speakers",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Health & Fitness",
+    "handle": "health-fitness",
+    "products": 42,
+    "subcategories": [
+      {
+        "title": "Smart Scales",
+        "handle": "smart-scales",
+        "products": 14
+      },
+      {
+        "title": "Fitness Trackers",
+        "handle": "fitness-trackers",
+        "products": 14
+      },
+      {
+        "title": "Massage Devices",
+        "handle": "massage-devices",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Toys & Kids",
+    "handle": "toys-kids",
+    "products": 42,
+    "subcategories": [
+      {
+        "title": "Educational Toys",
+        "handle": "educational-toys",
+        "products": 14
+      },
+      {
+        "title": "Kids Tablets",
+        "handle": "kids-tablets",
+        "products": 14
+      },
+      {
+        "title": "Remote Control Toys",
+        "handle": "remote-control-toys",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Travel & Lifestyle",
+    "handle": "travel-lifestyle",
+    "products": 41,
+    "subcategories": [
+      {
+        "title": "Travel Adapters",
+        "handle": "travel-adapters",
+        "products": 13
+      },
+      {
+        "title": "Luggage",
+        "handle": "luggage",
+        "products": 14
+      },
+      {
+        "title": "Portable Speakers",
+        "handle": "portable-speakers",
+        "products": 14
+      }
+    ]
+  },
+  {
+    "title": "Office & Supplies",
+    "handle": "office-supplies",
+    "products": 41,
+    "subcategories": [
+      {
+        "title": "Office Chairs",
+        "handle": "office-chairs",
+        "products": 14
+      },
+      {
+        "title": "Label Printers",
+        "handle": "label-printers",
+        "products": 14
+      },
+      {
+        "title": "Stationery & Accessories",
+        "handle": "stationery-accessories",
+        "products": 13
+      }
+    ]
+  }
+]

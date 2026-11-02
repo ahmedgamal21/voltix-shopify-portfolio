@@ -1,0 +1,47 @@
+{%- comment -%}
+  VOLTIX "Shop by brand" row. Each block links to Shopify's automatic vendor page.
+{%- endcomment -%}
+<section class="vx-section vx-brands vx-wrap" aria-labelledby="VxBrandsTitle-{{ section.id }}">
+  <div class="vx-section__head">
+    <h2 id="VxBrandsTitle-{{ section.id }}" class="vx-section__title">{% render 'voltix-text', value: section.settings.heading, key: 'voltix.brands_heading' %}</h2>
+  </div>
+  <ul class="vx-brands__list" role="list">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.vendor != blank -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="vx-brand" href="{{ block.settings.vendor | url_for_vendor }}">
+            {%- if block.settings.logo != blank -%}
+              {{ block.settings.logo | image_url: width: 240 | image_tag: loading: 'lazy', alt: block.settings.vendor }}
+            {%- else -%}
+              {{ block.settings.vendor | escape }}
+            {%- endif -%}
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "VOLTIX brands",
+  "tag": "div",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by brand" }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        { "type": "text", "id": "vendor", "label": "Vendor name (exactly as in products)", "default": "Sony" },
+        { "type": "image_picker", "id": "logo", "label": "Logo image (optional)", "info": "Only use brand logos you have the right to use." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VOLTIX brands", "blocks": [{ "type": "brand" }] }
+  ]
+}
+{% endschema %}

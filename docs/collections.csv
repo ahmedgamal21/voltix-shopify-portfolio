@@ -1,0 +1,89 @@
+level,department,title,handle,url,products
+Department,,Air Conditioning,air-conditioning,/collections/air-conditioning,55
+Department,,TVs & Home Entertainment,tvs-home-entertainment,/collections/tvs-home-entertainment,71
+Department,,Mobiles & Wearables,mobiles-wearables,/collections/mobiles-wearables,72
+Department,,Computers & Tablets,computers-tablets,/collections/computers-tablets,97
+Department,,Gaming,gaming,/collections/gaming,70
+Department,,Large Home Appliances,large-home-appliances,/collections/large-home-appliances,84
+Department,,Small Kitchen Appliances,small-kitchen-appliances,/collections/small-kitchen-appliances,99
+Department,,Cleaning & Floor Care,cleaning-floor-care,/collections/cleaning-floor-care,56
+Department,,Cameras & Imaging,cameras-imaging,/collections/cameras-imaging,70
+Department,,Smart Home & Security,smart-home-security,/collections/smart-home-security,70
+Department,,Beauty & Personal Care,beauty-personal-care,/collections/beauty-personal-care,56
+Department,,Personal Audio,personal-audio,/collections/personal-audio,42
+Department,,Health & Fitness,health-fitness,/collections/health-fitness,42
+Department,,Toys & Kids,toys-kids,/collections/toys-kids,42
+Department,,Travel & Lifestyle,travel-lifestyle,/collections/travel-lifestyle,41
+Department,,Office & Supplies,office-supplies,/collections/office-supplies,41
+Subcategory,Air Conditioning,Split AC,split-ac,/collections/split-ac,14
+Subcategory,Air Conditioning,Window AC,window-ac,/collections/window-ac,13
+Subcategory,Air Conditioning,Portable AC,portable-ac,/collections/portable-ac,14
+Subcategory,Air Conditioning,Air Purifiers,air-purifiers,/collections/air-purifiers,14
+Subcategory,TVs & Home Entertainment,Televisions,televisions,/collections/televisions,17
+Subcategory,TVs & Home Entertainment,Projectors,projectors,/collections/projectors,14
+Subcategory,TVs & Home Entertainment,Soundbars & Home Theater,soundbars-home-theater,/collections/soundbars-home-theater,14
+Subcategory,TVs & Home Entertainment,Streaming Devices,streaming-devices,/collections/streaming-devices,13
+Subcategory,TVs & Home Entertainment,TV Accessories,tv-accessories,/collections/tv-accessories,13
+Subcategory,Mobiles & Wearables,Smartphones,smartphones,/collections/smartphones,16
+Subcategory,Mobiles & Wearables,Smart Watches,smart-watches,/collections/smart-watches,14
+Subcategory,Mobiles & Wearables,Phone Cases,phone-cases,/collections/phone-cases,14
+Subcategory,Mobiles & Wearables,Chargers & Cables,chargers-cables,/collections/chargers-cables,14
+Subcategory,Mobiles & Wearables,Power Banks,power-banks,/collections/power-banks,14
+Subcategory,Computers & Tablets,Laptops,laptops,/collections/laptops,14
+Subcategory,Computers & Tablets,Desktops & All-in-Ones,desktops-all-in-ones,/collections/desktops-all-in-ones,14
+Subcategory,Computers & Tablets,Tablets,tablets,/collections/tablets,14
+Subcategory,Computers & Tablets,Monitors,monitors,/collections/monitors,14
+Subcategory,Computers & Tablets,Printers,printers,/collections/printers,14
+Subcategory,Computers & Tablets,Storage,storage,/collections/storage,13
+Subcategory,Computers & Tablets,Computer Accessories,computer-accessories,/collections/computer-accessories,14
+Subcategory,Gaming,Consoles & Accessories,consoles-accessories,/collections/consoles-accessories,14
+Subcategory,Gaming,Gaming Laptops,gaming-laptops,/collections/gaming-laptops,14
+Subcategory,Gaming,Controllers,controllers,/collections/controllers,14
+Subcategory,Gaming,Gaming Chairs,gaming-chairs,/collections/gaming-chairs,14
+Subcategory,Gaming,Gaming Headsets,gaming-headsets,/collections/gaming-headsets,14
+Subcategory,Large Home Appliances,Refrigerators & Freezers,refrigerators-freezers,/collections/refrigerators-freezers,14
+Subcategory,Large Home Appliances,Washing Machines,washing-machines,/collections/washing-machines,14
+Subcategory,Large Home Appliances,Dryers,dryers,/collections/dryers,14
+Subcategory,Large Home Appliances,Dishwashers,dishwashers,/collections/dishwashers,14
+Subcategory,Large Home Appliances,Cookers,cookers,/collections/cookers,14
+Subcategory,Large Home Appliances,Built-in Ovens,built-in-ovens,/collections/built-in-ovens,14
+Subcategory,Small Kitchen Appliances,Air Fryers,air-fryers,/collections/air-fryers,14
+Subcategory,Small Kitchen Appliances,Coffee Machines,coffee-machines,/collections/coffee-machines,16
+Subcategory,Small Kitchen Appliances,Blenders & Mixers,blenders-mixers,/collections/blenders-mixers,14
+Subcategory,Small Kitchen Appliances,Microwaves,microwaves,/collections/microwaves,14
+Subcategory,Small Kitchen Appliances,Kettles,kettles,/collections/kettles,14
+Subcategory,Small Kitchen Appliances,Toasters,toasters,/collections/toasters,13
+Subcategory,Small Kitchen Appliances,Food Processors,food-processors,/collections/food-processors,14
+Subcategory,Cleaning & Floor Care,Vacuum Cleaners,vacuum-cleaners,/collections/vacuum-cleaners,14
+Subcategory,Cleaning & Floor Care,Robot Vacuums,robot-vacuums,/collections/robot-vacuums,14
+Subcategory,Cleaning & Floor Care,Irons & Steamers,irons-steamers,/collections/irons-steamers,14
+Subcategory,Cleaning & Floor Care,Pressure Washers,pressure-washers,/collections/pressure-washers,14
+Subcategory,Cameras & Imaging,Cameras,cameras,/collections/cameras,14
+Subcategory,Cameras & Imaging,Lenses,lenses,/collections/lenses,14
+Subcategory,Cameras & Imaging,Instant Cameras,instant-cameras,/collections/instant-cameras,14
+Subcategory,Cameras & Imaging,Camera Accessories,camera-accessories,/collections/camera-accessories,14
+Subcategory,Cameras & Imaging,Dash Cams,dash-cams,/collections/dash-cams,14
+Subcategory,Smart Home & Security,Smart Home Devices,smart-home-devices,/collections/smart-home-devices,14
+Subcategory,Smart Home & Security,Smart Lighting,smart-lighting,/collections/smart-lighting,14
+Subcategory,Smart Home & Security,Smart Locks,smart-locks,/collections/smart-locks,14
+Subcategory,Smart Home & Security,Security Cameras,security-cameras,/collections/security-cameras,14
+Subcategory,Smart Home & Security,Routers & Mesh,routers-mesh,/collections/routers-mesh,14
+Subcategory,Beauty & Personal Care,Hair Styling,hair-styling,/collections/hair-styling,14
+Subcategory,Beauty & Personal Care,Electric Shavers,electric-shavers,/collections/electric-shavers,14
+Subcategory,Beauty & Personal Care,Skin Care Devices,skin-care-devices,/collections/skin-care-devices,14
+Subcategory,Beauty & Personal Care,Oral Care,oral-care,/collections/oral-care,14
+Subcategory,Personal Audio,Headphones,headphones,/collections/headphones,14
+Subcategory,Personal Audio,Earbuds,earbuds,/collections/earbuds,14
+Subcategory,Personal Audio,Bluetooth Speakers,bluetooth-speakers,/collections/bluetooth-speakers,14
+Subcategory,Health & Fitness,Smart Scales,smart-scales,/collections/smart-scales,14
+Subcategory,Health & Fitness,Fitness Trackers,fitness-trackers,/collections/fitness-trackers,14
+Subcategory,Health & Fitness,Massage Devices,massage-devices,/collections/massage-devices,14
+Subcategory,Toys & Kids,Educational Toys,educational-toys,/collections/educational-toys,14
+Subcategory,Toys & Kids,Kids Tablets,kids-tablets,/collections/kids-tablets,14
+Subcategory,Toys & Kids,Remote Control Toys,remote-control-toys,/collections/remote-control-toys,14
+Subcategory,Travel & Lifestyle,Travel Adapters,travel-adapters,/collections/travel-adapters,13
+Subcategory,Travel & Lifestyle,Luggage,luggage,/collections/luggage,14
+Subcategory,Travel & Lifestyle,Portable Speakers,portable-speakers,/collections/portable-speakers,14
+Subcategory,Office & Supplies,Office Chairs,office-chairs,/collections/office-chairs,14
+Subcategory,Office & Supplies,Label Printers,label-printers,/collections/label-printers,14
+Subcategory,Office & Supplies,Stationery & Accessories,stationery-accessories,/collections/stationery-accessories,13

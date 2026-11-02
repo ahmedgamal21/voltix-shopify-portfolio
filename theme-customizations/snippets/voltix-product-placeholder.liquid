@@ -1,0 +1,44 @@
+{%- comment -%}
+  Branded illustration for products that have no photos yet.
+  The illustration is chosen from the product's department tag (dept-<handle>).
+
+  Accepts:
+  - product {Product}
+  - variant {String}: 'card' (default, links to the product) or 'pdp' (large, no link)
+
+  Usage:
+  {% render 'voltix-product-placeholder', product: product %}
+  {% render 'voltix-product-placeholder', product: product, variant: 'pdp' %}
+{%- endcomment -%}
+{%- liquid
+  assign vx_dept = ''
+  for tag in product.tags
+    assign prefix = tag | slice: 0, 5
+    if prefix == 'dept-'
+      assign vx_dept = tag | remove_first: 'dept-'
+      break
+    endif
+  endfor
+  assign variant = variant | default: 'card'
+-%}
+{%- capture vx_inner -%}
+  {%- if vx_dept != blank -%}
+    <img
+      class="vx-placeholder__illo"
+      src="{{ 'vx-illo-' | append: vx_dept | append: '.svg' | asset_url }}"
+      alt=""
+      width="400"
+      height="400"
+      loading="lazy"
+    >
+  {%- else -%}
+    {% render 'voltix-icon', icon: 'image', size: 56 %}
+  {%- endif -%}
+  <span class="vx-placeholder__brand">{{ product.vendor | escape }}</span>
+  <span class="vx-placeholder__tag">{{ 'voltix.illustration' | t }}</span>
+{%- endcapture -%}
+{%- if variant == 'pdp' -%}
+  <div class="vx-placeholder vx-placeholder--pdp">{{ vx_inner }}</div>
+{%- else -%}
+  <a class="vx-placeholder" href="{{ product.url }}" ref="cardGalleryLink" aria-label="{{ product.title | escape }}">{{ vx_inner }}</a>
+{%- endif -%}

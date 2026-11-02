@@ -1,0 +1,226 @@
+diff --git a/blocks/_header-logo.liquid b/blocks/_header-logo.liquid
+index f8fc2db..05a0a58 100644
+--- a/blocks/_header-logo.liquid
++++ b/blocks/_header-logo.liquid
+@@ -57,6 +57,7 @@
+     {% endif %}
+     data-testid="header-logo"
+   >
++    {%- if settings.logo != blank -%}
+     {% render 'image',
+       image: settings.logo,
+       class: 'header-logo__image',
+@@ -65,6 +66,9 @@
+       text_fallback: shop.name,
+       style: logo_style
+     %}
++    {%- else -%}
++      <img src="{{ 'voltix-logo-horizontal.png' | asset_url }}" alt="{{ shop.name | escape }}" class="header-logo__image vx-logo-fallback" width="1192" height="319" style="--vx-logo-h: {{ settings.logo_height }}px; --vx-logo-h-m: {{ settings.logo_height_mobile }}px;">
++    {%- endif -%}
+   </span>
+ 
+   {% if use_inverse_logo %}
+diff --git a/blocks/_product-card-gallery.liquid b/blocks/_product-card-gallery.liquid
+index 0d656f4..6caca2a 100644
+--- a/blocks/_product-card-gallery.liquid
++++ b/blocks/_product-card-gallery.liquid
+@@ -4,6 +4,7 @@
+ 
+ {% capture children %}
+   {% unless product == blank %}
++    {% render 'voltix-wishlist-button', product: product %}
+     {%- if product.available == false or product.compare_at_price > product.price -%}
+       <div
+         class="product-badges product-badges--{{ settings.badge_position }}"
+diff --git a/blocks/_product-list-text.liquid b/blocks/_product-list-text.liquid
+index 9ba7e4b..b5e943f 100644
+--- a/blocks/_product-list-text.liquid
++++ b/blocks/_product-list-text.liquid
+@@ -3,7 +3,11 @@
+ {% assign placeholder = 'content.featured_products' | t %}
+ {% assign placeholder = '<h3>' | append: placeholder | append: '</h3>' %}
+ 
+-{% render 'text', fallback_text: placeholder, block: block %}
++{%- if closest.collection != blank -%}
++  {%- capture vx_ct -%}{% render 'voltix-collection-title', collection: closest.collection %}{%- endcapture -%}
++  {%- assign vx_override = block.settings.text | replace: closest.collection.title, vx_ct -%}
++{%- endif -%}
++{% render 'text', fallback_text: placeholder, block: block, override_text: vx_override %}
+ 
+ {% schema %}
+ {
+diff --git a/blocks/text.liquid b/blocks/text.liquid
+index e0b9847..137f2b0 100644
+--- a/blocks/text.liquid
++++ b/blocks/text.liquid
+@@ -1,6 +1,16 @@
+ 
+ 
+-{% render 'text', block: block %}
++{%- comment -%} VOLTIX: show translated collection titles inside dynamic text {%- endcomment -%}
++{%- if closest.collection != blank and request.locale.primary == false -%}
++  {%- capture vx_ct -%}{% render 'voltix-collection-title', collection: closest.collection %}{%- endcapture -%}
++  {%- assign vx_override = block.settings.text | replace: closest.collection.title, vx_ct -%}
++  {%- assign vx_plain = block.settings.text | strip_html | strip -%}
++  {%- assign vx_desc = closest.collection.description | strip_html | strip -%}
++  {%- if vx_desc != blank and vx_plain == vx_desc -%}
++    {%- assign vx_override = 'voltix.collection_intro' | t: title: vx_ct | prepend: '<p>' | append: '</p>' -%}
++  {%- endif -%}
++{%- endif -%}
++{% render 'text', block: block, override_text: vx_override %}
+ 
+ {% schema %}
+ {
+diff --git a/blocks/variant-picker.liquid b/blocks/variant-picker.liquid
+index 9a23d47..c27de8e 100644
+--- a/blocks/variant-picker.liquid
++++ b/blocks/variant-picker.liquid
+@@ -7,7 +7,13 @@
+   endif
+ -%}
+ 
+-{% unless product_resource == blank %}
++{%- liquid
++  assign vx_only_default = false
++  if product_resource.variants.size == 1 and product_resource.selected_or_first_available_variant.title == 'Default Title'
++    assign vx_only_default = true
++  endif
++-%}
++{% unless product_resource == blank or vx_only_default %}
+   {% render 'variant-main-picker', product_resource: product_resource, section: section, product: product %}
+ {% endunless %}
+ 
+diff --git a/layout/theme.liquid b/layout/theme.liquid
+index 4e3b20e..559e2d5 100644
+--- a/layout/theme.liquid
++++ b/layout/theme.liquid
+@@ -23,6 +23,13 @@
+     {%- render 'scripts' -%}
+     {%- render 'theme-styles-variables' -%}
+     {%- render 'color-palette' -%}
++    {{ 'voltix.css' | asset_url | stylesheet_tag }}
++    <script src="{{ 'voltix-wishlist.js' | asset_url }}" defer="defer"></script>
++    {%- if request.locale.direction == 'rtl' -%}
++      <link rel="preconnect" href="https://fonts.googleapis.com">
++      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
++    {%- endif -%}
+ 
+     {% if request.design_mode %}
+       {%- render 'theme-editor' -%}
+diff --git a/sections/main-page.liquid b/sections/main-page.liquid
+index e36ef47..2177905 100644
+--- a/sections/main-page.liquid
++++ b/sections/main-page.liquid
+@@ -24,6 +24,9 @@
+     "
+   >
+     {% content_for 'blocks' %}
++    {%- if page.handle == 'wishlist' -%}
++      {% render 'voltix-wishlist-grid' %}
++    {%- endif -%}
+   </div>
+ </div>
+ 
+diff --git a/snippets/button.liquid b/snippets/button.liquid
+index 26127bd..16610ca 100644
+--- a/snippets/button.liquid
++++ b/snippets/button.liquid
+@@ -30,5 +30,5 @@
+   {%- endif -%}
+   {{ block.shopify_attributes }}
+ >
+-  {{ block_settings.label }}
++  {%- if block_settings.label == 'View all' -%}{{ 'voltix.view_all' | t }}{%- else -%}{{ block_settings.label }}{%- endif -%}
+ </a>
+diff --git a/snippets/card-gallery.liquid b/snippets/card-gallery.liquid
+index ad46d86..c1ac08a 100644
+--- a/snippets/card-gallery.liquid
++++ b/snippets/card-gallery.liquid
+@@ -212,15 +212,7 @@
+       {%- endif -%}
+     </a>
+   {% elsif product != blank and product.media.size == 0 %}
+-    <div class="product-card-gallery__title-placeholder">
+-      <a
+-        class="contents"
+-        ref="cardGalleryLink"
+-        href="{{ product.url }}"
+-      >
+-        <span class="title-text">{{- product.title -}}</span>
+-      </a>
+-    </div>
++    {% render 'voltix-product-placeholder', product: product %}
+   {% elsif product == blank %}
+     {% liquid
+       capture placeholder_image
+diff --git a/snippets/header-actions.liquid b/snippets/header-actions.liquid
+index 637bba5..2f5dbd8 100644
+--- a/snippets/header-actions.liquid
++++ b/snippets/header-actions.liquid
+@@ -113,6 +113,15 @@
+     </div>
+   {% endif %}
+ 
++  <a
++    href="{{ routes.root_url | append: '/pages/wishlist' | replace: '//', '/' }}"
++    class="header-actions__action vx-header-wish"
++    aria-label="{{ 'voltix.wishlist' | t }}"
++  >
++    <span class="svg-wrapper" aria-hidden="true">{% render 'voltix-icon', icon: 'heart' %}</span>
++    <voltix-wishlist-count hidden></voltix-wishlist-count>
++  </a>
++
+   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
+     <button
+       class="header-actions__action button-unstyled{% if display_style == 'text' %} header-actions__text-style{% endif %}"
+diff --git a/snippets/product-information-content.liquid b/snippets/product-information-content.liquid
+index 0d7172e..2ca051b 100644
+--- a/snippets/product-information-content.liquid
++++ b/snippets/product-information-content.liquid
+@@ -44,8 +44,10 @@
+ 
+   # Check if product has media
+   assign product_has_media = true
++  # VOLTIX: keep the two-column layout and show a branded placeholder when a product has no media
++  assign vx_no_media = false
+   if product.media.size == 0
+-    assign product_has_media = false
++    assign vx_no_media = true
+   endif
+ 
+   # Build product grid class
+@@ -107,7 +109,11 @@
+         class="product-information__media"
+         data-testid="product-information-media"
+       >
+-        {{ media_gallery }}
++        {%- if vx_no_media -%}
++          {% render 'voltix-product-placeholder', product: product, variant: 'pdp' %}
++        {%- else -%}
++          {{ media_gallery }}
++        {%- endif -%}
+       </div>
+     {% endcapture %}
+ 
+diff --git a/snippets/text.liquid b/snippets/text.liquid
+index f539a98..61d611a 100644
+--- a/snippets/text.liquid
++++ b/snippets/text.liquid
+@@ -5,6 +5,7 @@
+   @param {string} [fallback_text] - fallback text if settings.text does not exist
+   @param {object} [block] - The block object
+   @param {string} [width] - width of the text block
++  @param {string} [override_text] - VOLTIX: rendered instead of settings.text (used for translated collection titles)
+ {%- enddoc -%}
+ 
+ {% render 'text-block-styles' %}
+@@ -98,7 +99,7 @@
+   </div>
+ {% elsif plain_text != blank %}
+   <{{ element }} {{ attributes | strip_newlines | strip }}>
+-    {{ block.settings.text }}
++    {{ override_text | default: block.settings.text }}
+   </{{ element }}>
+ {% endif %}
+ 

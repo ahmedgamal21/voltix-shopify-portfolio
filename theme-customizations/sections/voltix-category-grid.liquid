@@ -1,0 +1,97 @@
+{%- comment -%}
+  VOLTIX "Shop by category" grid. One block = one collection card with an icon.
+{%- endcomment -%}
+<section class="vx-section vx-cats vx-wrap" aria-labelledby="VxCatsTitle-{{ section.id }}">
+  <div class="vx-section__head">
+    <h2 id="VxCatsTitle-{{ section.id }}" class="vx-section__title">{% render 'voltix-text', value: section.settings.heading, key: 'voltix.cats_heading' %}</h2>
+    <a class="vx-section__link" href="{{ section.settings.link | default: routes.collections_url }}">{% render 'voltix-text', value: section.settings.link_label, key: 'voltix.cats_link' %}</a>
+  </div>
+
+  <ul class="vx-cats__grid vx-cats__grid--{{ section.settings.style }}" role="list" style="--vx-cols: {{ section.settings.columns_desktop }};">
+    {%- for block in section.blocks -%}
+      {%- assign c = block.settings.collection -%}
+      <li {{ block.shopify_attributes }}>
+        <a class="vx-cat" href="{% if c != blank %}{{ c.url }}{% else %}#{% endif %}">
+          <span class="vx-cat__icon">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+            {%- elsif section.settings.style == 'illustrations' and c != blank -%}
+              <img src="{{ 'vx-illo-' | append: c.handle | append: '.svg' | asset_url }}" alt="" width="400" height="400" loading="lazy">
+            {%- else -%}
+              {% render 'voltix-icon', icon: block.settings.icon, size: 34 %}
+            {%- endif -%}
+          </span>
+          <span class="vx-cat__name">
+            {%- if block.settings.label != blank -%}
+              {{ block.settings.label | escape }}
+            {%- elsif c != blank -%}
+              {% render 'voltix-collection-title', collection: c %}
+            {%- else -%}
+              Choose a collection
+            {%- endif -%}
+          </span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "VOLTIX category grid",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by category" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "View all departments" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "select", "id": "style", "label": "Card style", "default": "illustrations", "options": [ { "value": "illustrations", "label": "Illustrations" }, { "value": "icons", "label": "Icons" } ], "info": "Illustrations exist for the 16 VOLTIX departments." },
+    { "type": "range", "id": "columns_desktop", "label": "Columns on desktop", "min": 4, "max": 8, "step": 1, "default": 8 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Custom label" },
+        { "type": "image_picker", "id": "image", "label": "Image (optional, replaces the icon)" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "tv",
+          "options": [
+            { "value": "air-conditioning", "label": "Air conditioning" },
+            { "value": "tv", "label": "TV" },
+            { "value": "mobile", "label": "Mobile" },
+            { "value": "computer", "label": "Computer" },
+            { "value": "gaming", "label": "Gaming" },
+            { "value": "large-appliance", "label": "Large appliance" },
+            { "value": "kitchen", "label": "Kitchen" },
+            { "value": "cleaning", "label": "Cleaning" },
+            { "value": "camera", "label": "Camera" },
+            { "value": "smart-home", "label": "Smart home" },
+            { "value": "beauty", "label": "Beauty" },
+            { "value": "audio", "label": "Audio" },
+            { "value": "fitness", "label": "Fitness" },
+            { "value": "toys", "label": "Toys" },
+            { "value": "travel", "label": "Travel" },
+            { "value": "office", "label": "Office" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VOLTIX category grid",
+      "blocks": [
+        { "type": "category", "settings": { "icon": "tv" } },
+        { "type": "category", "settings": { "icon": "mobile" } },
+        { "type": "category", "settings": { "icon": "computer" } },
+        { "type": "category", "settings": { "icon": "gaming" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,254 @@
+{
+  "voltix_announcements": {
+    "type": "voltix-announcements",
+    "settings": {
+      "message_1": "",
+      "message_2": "",
+      "message_3": ""
+    }
+  },
+  "voltix_mega_menu": {
+    "type": "voltix-mega-menu",
+    "blocks": {
+      "dept_01": {
+        "type": "department",
+        "settings": {
+          "collection": "tvs-home-entertainment",
+          "icon": "tv",
+          "subcollections": [
+            "televisions",
+            "projectors",
+            "soundbars-home-theater",
+            "streaming-devices",
+            "tv-accessories"
+          ]
+        }
+      },
+      "dept_02": {
+        "type": "department",
+        "settings": {
+          "collection": "mobiles-wearables",
+          "icon": "mobile",
+          "subcollections": [
+            "smartphones",
+            "smart-watches",
+            "phone-cases",
+            "chargers-cables",
+            "power-banks"
+          ]
+        }
+      },
+      "dept_03": {
+        "type": "department",
+        "settings": {
+          "collection": "computers-tablets",
+          "icon": "computer",
+          "subcollections": [
+            "laptops",
+            "desktops-all-in-ones",
+            "tablets",
+            "monitors",
+            "printers",
+            "storage",
+            "computer-accessories"
+          ]
+        }
+      },
+      "dept_04": {
+        "type": "department",
+        "settings": {
+          "collection": "gaming",
+          "icon": "gaming",
+          "subcollections": [
+            "consoles-accessories",
+            "gaming-laptops",
+            "controllers",
+            "gaming-chairs",
+            "gaming-headsets"
+          ]
+        }
+      },
+      "dept_05": {
+        "type": "department",
+        "settings": {
+          "collection": "large-home-appliances",
+          "icon": "large-appliance",
+          "subcollections": [
+            "refrigerators-freezers",
+            "washing-machines",
+            "dryers",
+            "dishwashers",
+            "cookers",
+            "built-in-ovens"
+          ]
+        }
+      },
+      "dept_06": {
+        "type": "department",
+        "settings": {
+          "collection": "small-kitchen-appliances",
+          "icon": "kitchen",
+          "subcollections": [
+            "air-fryers",
+            "coffee-machines",
+            "blenders-mixers",
+            "microwaves",
+            "kettles",
+            "toasters",
+            "food-processors"
+          ]
+        }
+      },
+      "dept_07": {
+        "type": "department",
+        "settings": {
+          "collection": "air-conditioning",
+          "icon": "air-conditioning",
+          "subcollections": [
+            "split-ac",
+            "window-ac",
+            "portable-ac",
+            "air-purifiers"
+          ]
+        }
+      },
+      "dept_08": {
+        "type": "department",
+        "settings": {
+          "collection": "personal-audio",
+          "icon": "audio",
+          "subcollections": [
+            "headphones",
+            "earbuds",
+            "bluetooth-speakers"
+          ]
+        }
+      },
+      "dept_09": {
+        "type": "department",
+        "settings": {
+          "collection": "cleaning-floor-care",
+          "icon": "cleaning",
+          "subcollections": [
+            "vacuum-cleaners",
+            "robot-vacuums",
+            "irons-steamers",
+            "pressure-washers"
+          ]
+        }
+      },
+      "dept_10": {
+        "type": "department",
+        "settings": {
+          "collection": "cameras-imaging",
+          "icon": "camera",
+          "subcollections": [
+            "cameras",
+            "lenses",
+            "instant-cameras",
+            "camera-accessories",
+            "dash-cams"
+          ]
+        }
+      },
+      "dept_11": {
+        "type": "department",
+        "settings": {
+          "collection": "smart-home-security",
+          "icon": "smart-home",
+          "subcollections": [
+            "smart-home-devices",
+            "smart-lighting",
+            "smart-locks",
+            "security-cameras",
+            "routers-mesh"
+          ]
+        }
+      },
+      "dept_12": {
+        "type": "department",
+        "settings": {
+          "collection": "beauty-personal-care",
+          "icon": "beauty",
+          "subcollections": [
+            "hair-styling",
+            "electric-shavers",
+            "skin-care-devices",
+            "oral-care"
+          ]
+        }
+      },
+      "dept_13": {
+        "type": "department",
+        "settings": {
+          "collection": "health-fitness",
+          "icon": "fitness",
+          "subcollections": [
+            "smart-scales",
+            "fitness-trackers",
+            "massage-devices"
+          ]
+        }
+      },
+      "dept_14": {
+        "type": "department",
+        "settings": {
+          "collection": "toys-kids",
+          "icon": "toys",
+          "subcollections": [
+            "educational-toys",
+            "kids-tablets",
+            "remote-control-toys"
+          ]
+        }
+      },
+      "dept_15": {
+        "type": "department",
+        "settings": {
+          "collection": "travel-lifestyle",
+          "icon": "travel",
+          "subcollections": [
+            "travel-adapters",
+            "luggage",
+            "portable-speakers"
+          ]
+        }
+      },
+      "dept_16": {
+        "type": "department",
+        "settings": {
+          "collection": "office-supplies",
+          "icon": "office",
+          "subcollections": [
+            "office-chairs",
+            "label-printers",
+            "stationery-accessories"
+          ]
+        }
+      }
+    },
+    "block_order": [
+      "dept_01",
+      "dept_02",
+      "dept_03",
+      "dept_04",
+      "dept_05",
+      "dept_06",
+      "dept_07",
+      "dept_08",
+      "dept_09",
+      "dept_10",
+      "dept_11",
+      "dept_12",
+      "dept_13",
+      "dept_14",
+      "dept_15",
+      "dept_16"
+    ],
+    "settings": {
+      "button_label": "",
+      "highlight_label": "",
+      "highlight_link": "shopify://collections/all"
+    }
+  }
+}

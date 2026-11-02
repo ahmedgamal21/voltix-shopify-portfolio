@@ -1,0 +1,153 @@
+{%- comment -%}
+  VOLTIX hero: a large slider on the left, two promo tiles on the right.
+  Empty text settings fall back to translated copy in locales (voltix.s1_*, voltix.t1_* ...).
+{%- endcomment -%}
+{%- capture vx_label -%}{% render 'voltix-text', value: section.settings.label, key: 'voltix.hero_label' %}{%- endcapture -%}
+<section class="vx-section vx-hero vx-wrap" aria-roledescription="carousel" aria-label="{{ vx_label | strip }}">
+  <div class="vx-hero__grid{% if section.settings.show_tiles == false %} vx-hero__grid--full{% endif %}">
+    <voltix-hero class="vx-hero__slider" data-autoplay="{{ section.settings.autoplay }}">
+      <div class="vx-hero__track" data-track>
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign k = 'voltix.s' | append: forloop.index
+            assign k_eyebrow = k | append: '_eyebrow'
+            assign k_heading = k | append: '_heading'
+            assign k_text = k | append: '_text'
+            assign k_b1 = k | append: '_b1'
+            assign k_b2 = k | append: '_b2'
+          -%}
+          <div
+            class="vx-hero__slide"
+            id="VxSlide-{{ block.id }}"
+            role="group"
+            aria-roledescription="slide"
+            aria-label="{{ forloop.index }} / {{ forloop.length }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.image != blank -%}
+              {%- liquid
+                if forloop.first
+                  assign loading = 'eager'
+                  assign priority = 'high'
+                else
+                  assign loading = 'lazy'
+                  assign priority = 'auto'
+                endif
+              -%}
+              {{ block.settings.image | image_url: width: 1800 | image_tag: class: 'vx-hero__image', loading: loading, fetchpriority: priority, sizes: '(min-width: 990px) 66vw, 100vw', widths: '600, 900, 1200, 1500, 1800', alt: '' }}
+            {%- else -%}
+              <span class="vx-stripes vx-stripes--hero" aria-hidden="true"><span></span><span></span><span></span></span>
+              {%- if block.settings.illustration != 'none' -%}
+                <img class="vx-hero__illo" src="{{ 'vx-illo-' | append: block.settings.illustration | append: '.svg' | asset_url }}" alt="" width="400" height="400" {% unless forloop.first %}loading="lazy"{% endunless %}>
+              {%- endif -%}
+            {%- endif -%}
+            <div class="vx-hero__content">
+              <span class="vx-hero__eyebrow">{% render 'voltix-text', value: block.settings.eyebrow, key: k_eyebrow %}</span>
+              {%- if forloop.first -%}
+                <h1 class="vx-hero__heading">{% render 'voltix-text', value: block.settings.heading, key: k_heading %}</h1>
+              {%- else -%}
+                <h2 class="vx-hero__heading">{% render 'voltix-text', value: block.settings.heading, key: k_heading %}</h2>
+              {%- endif -%}
+              <p class="vx-hero__text">{% render 'voltix-text', value: block.settings.text, key: k_text %}</p>
+              <div class="vx-hero__actions">
+                <a class="vx-btn vx-btn--lg" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{% render 'voltix-text', value: block.settings.button_label, key: k_b1 %}</a>
+                <a class="vx-btn vx-btn--lg vx-btn--ghost" href="{{ block.settings.button2_link | default: routes.collections_url }}">{% render 'voltix-text', value: block.settings.button2_label, key: k_b2 %}</a>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.blocks.size > 1 -%}
+        <div class="vx-hero__dots" data-dots>
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              class="vx-hero__dot"
+              aria-label="{{ 'voltix.go_to_slide' | t: index: forloop.index }}"
+              aria-controls="VxSlide-{{ block.id }}"
+              {% if forloop.first %}aria-current="true"{% endif %}
+              data-dot="{{ forloop.index0 }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </voltix-hero>
+
+    {%- if section.settings.show_tiles -%}
+      <div class="vx-hero__tiles">
+        <a class="vx-tile vx-tile--soft" href="{% if section.settings.tile1_collection != blank %}{{ section.settings.tile1_collection.url }}{% else %}#{% endif %}">
+          <span class="vx-tile__eyebrow">{% render 'voltix-text', value: section.settings.tile1_eyebrow, key: 'voltix.t1_eyebrow' %}</span>
+          <span class="vx-tile__heading">{% render 'voltix-text', value: section.settings.tile1_heading, key: 'voltix.t1_heading' %}</span>
+          <span class="vx-tile__link">{% render 'voltix-text', value: section.settings.tile1_link_label, key: 'voltix.t1_link' %} <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="vx-tile vx-tile--grey" href="{% if section.settings.tile2_collection != blank %}{{ section.settings.tile2_collection.url }}{% else %}#{% endif %}">
+          <span class="vx-tile__eyebrow">{% render 'voltix-text', value: section.settings.tile2_eyebrow, key: 'voltix.t2_eyebrow' %}</span>
+          <span class="vx-tile__heading">{% render 'voltix-text', value: section.settings.tile2_heading, key: 'voltix.t2_heading' %}</span>
+          <span class="vx-tile__link">{% render 'voltix-text', value: section.settings.tile2_link_label, key: 'voltix.t2_link' %} <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script src="{{ 'voltix-hero.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VOLTIX hero",
+  "tag": "div",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "paragraph", "content": "Leave text fields empty to use the English and Arabic copy from the theme language files." },
+    { "type": "text", "id": "label", "label": "Accessible label" },
+    { "type": "range", "id": "autoplay", "label": "Auto-rotate every (seconds, 0 = off)", "min": 0, "max": 10, "step": 1, "default": 6 },
+    { "type": "checkbox", "id": "show_tiles", "label": "Show side tiles", "default": true },
+    { "type": "header", "content": "Tile 1" },
+    { "type": "text", "id": "tile1_eyebrow", "label": "Small label" },
+    { "type": "text", "id": "tile1_heading", "label": "Heading" },
+    { "type": "text", "id": "tile1_link_label", "label": "Link label" },
+    { "type": "collection", "id": "tile1_collection", "label": "Collection" },
+    { "type": "header", "content": "Tile 2" },
+    { "type": "text", "id": "tile2_eyebrow", "label": "Small label" },
+    { "type": "text", "id": "tile2_heading", "label": "Heading" },
+    { "type": "text", "id": "tile2_link_label", "label": "Link label" },
+    { "type": "collection", "id": "tile2_collection", "label": "Collection" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        {
+          "type": "select",
+          "id": "illustration",
+          "label": "Illustration (used when there is no image)",
+          "default": "tvs-home-entertainment",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "tvs-home-entertainment", "label": "TV" },
+            { "value": "mobiles-wearables", "label": "Phone and watch" },
+            { "value": "computers-tablets", "label": "Laptop" },
+            { "value": "gaming", "label": "Controller" },
+            { "value": "personal-audio", "label": "Headphones" },
+            { "value": "cameras-imaging", "label": "Camera" },
+            { "value": "small-kitchen-appliances", "label": "Kitchen" },
+            { "value": "air-conditioning", "label": "Air conditioner" }
+          ]
+        },
+        { "type": "text", "id": "eyebrow", "label": "Small label" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_link", "label": "Button link" },
+        { "type": "text", "id": "button2_label", "label": "Second button label" },
+        { "type": "url", "id": "button2_link", "label": "Second button link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VOLTIX hero", "blocks": [{ "type": "slide" }] }
+  ]
+}
+{% endschema %}

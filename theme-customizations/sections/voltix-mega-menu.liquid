@@ -1,0 +1,191 @@
+{%- comment -%}
+  VOLTIX mega menu.
+  Lives in the header group, under the Horizon header.
+  Each "Department" block = one main collection + its subcategory collections,
+  chosen with collection pickers in the theme editor (no hardcoded URLs).
+{%- endcomment -%}
+
+{%- assign quick_menu = section.settings.quick_links -%}
+
+<voltix-mega-menu class="vx-mega" data-section-id="{{ section.id }}">
+  <div class="vx-mega__bar vx-wrap">
+    <button
+      type="button"
+      class="vx-mega__toggle"
+      aria-expanded="false"
+      aria-controls="VxMegaPanel-{{ section.id }}"
+      data-mega-toggle
+    >
+      <span class="vx-mega__toggle-open">{% render 'voltix-icon', icon: 'menu', size: 18 %}</span>
+      <span class="vx-mega__toggle-close">{% render 'voltix-icon', icon: 'close', size: 18 %}</span>
+      <span>{% render 'voltix-text', value: section.settings.button_label, key: 'voltix.all_categories' %}</span>
+      {% render 'voltix-icon', icon: 'chevron-down', size: 16 %}
+    </button>
+
+    {%- if quick_menu != blank -%}
+      <nav class="vx-mega__quick" aria-label="{{ quick_menu.title | escape }}">
+        {%- for link in quick_menu.links -%}
+          <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    <a class="vx-mega__highlight" href="{{ section.settings.highlight_link | default: routes.all_products_collection_url }}">
+      {%- render 'voltix-text', value: section.settings.highlight_label, key: 'voltix.new_arrivals' -%}
+    </a>
+  </div>
+
+  <div class="vx-mega__panel" id="VxMegaPanel-{{ section.id }}" hidden data-mega-panel>
+    <div class="vx-mega__inner">
+      <div class="vx-mega__mobile-head">
+        <strong>{% render 'voltix-text', value: section.settings.button_label, key: 'voltix.all_categories' %}</strong>
+        <button type="button" class="vx-mega__close" data-mega-close aria-label="{{ 'voltix.close_menu' | t }}">
+          {% render 'voltix-icon', icon: 'close' %}
+        </button>
+      </div>
+
+      <ul class="vx-mega__depts" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign dept = block.settings.collection -%}
+          {%- if dept == blank -%}{%- continue -%}{%- endif -%}
+          <li class="vx-mega__dept" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="vx-mega__dept-btn"
+              id="VxDept-{{ block.id }}"
+              aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="VxSubs-{{ block.id }}"
+              data-dept
+            >
+              <span class="vx-mega__dept-icon">{% render 'voltix-icon', icon: block.settings.icon, size: 20 %}</span>
+              <span class="vx-mega__dept-name">{% if block.settings.label != blank %}{{ block.settings.label | escape }}{% else %}{% render 'voltix-collection-title', collection: dept %}{% endif %}</span>
+              <span class="vx-mega__dept-count">{{ dept.products_count }}</span>
+              {% render 'voltix-icon', icon: 'chevron-right', size: 16 %}
+            </button>
+
+            <div
+              class="vx-mega__subs"
+              id="VxSubs-{{ block.id }}"
+              role="region"
+              aria-labelledby="VxDept-{{ block.id }}"
+              {% unless forloop.first %}hidden{% endunless %}
+            >
+              <div class="vx-mega__subs-head">
+                <h2 class="vx-mega__subs-title">{% if block.settings.label != blank %}{{ block.settings.label | escape }}{% else %}{% render 'voltix-collection-title', collection: dept %}{% endif %}</h2>
+                <a href="{{ dept.url }}" class="vx-mega__all">
+                  {{ 'voltix.shop_all_count' | t: number: dept.products_count }}
+                </a>
+              </div>
+              <ul class="vx-mega__sub-list" role="list">
+                {%- for sub in block.settings.subcollections -%}
+                  <li>
+                    <a href="{{ sub.url }}" class="vx-mega__sub">
+                      <span>{% render 'voltix-collection-title', collection: sub %}</span>
+                      <span class="vx-mega__sub-count">{{ sub.products_count }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+                <li class="vx-mega__sub-all-mobile">
+                  {%- capture dt -%}{% render 'voltix-collection-title', collection: dept %}{%- endcapture -%}<a href="{{ dept.url }}" class="vx-mega__sub">{{ 'voltix.shop_all_title' | t: title: dt }}</a>
+                </li>
+              </ul>
+              <a class="vx-mega__feature" href="{{ dept.url }}">
+                <img src="{{ 'vx-illo-' | append: dept.handle | append: '.svg' | asset_url }}" alt="" width="400" height="400" loading="lazy">
+                <span class="vx-mega__feature-btn">{{ 'voltix.shop_all_count' | t: number: dept.products_count }}</span>
+              </a>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  <div class="vx-mega__overlay" hidden data-mega-overlay></div>
+</voltix-mega-menu>
+
+<script src="{{ 'voltix-mega-menu.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VOLTIX mega menu",
+  "tag": "section",
+  "class": "vx-mega-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 24,
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "All Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "quick_links",
+      "label": "Quick links next to the button",
+      "info": "Optional. A short Shopify menu (6-8 links) shown on desktop."
+    },
+    {
+      "type": "text",
+      "id": "highlight_label",
+      "label": "Highlighted link label",
+      "default": "New arrivals"
+    },
+    {
+      "type": "url",
+      "id": "highlight_link",
+      "label": "Highlighted link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "department",
+      "name": "Department",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Department collection"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Custom label",
+          "info": "Leave empty to use the collection title."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "tv",
+          "options": [
+            { "value": "air-conditioning", "label": "Air conditioning" },
+            { "value": "tv", "label": "TV" },
+            { "value": "mobile", "label": "Mobile" },
+            { "value": "computer", "label": "Computer" },
+            { "value": "gaming", "label": "Gaming" },
+            { "value": "large-appliance", "label": "Large appliance" },
+            { "value": "kitchen", "label": "Kitchen" },
+            { "value": "cleaning", "label": "Cleaning" },
+            { "value": "camera", "label": "Camera" },
+            { "value": "smart-home", "label": "Smart home" },
+            { "value": "beauty", "label": "Beauty" },
+            { "value": "audio", "label": "Audio" },
+            { "value": "fitness", "label": "Fitness" },
+            { "value": "toys", "label": "Toys" },
+            { "value": "travel", "label": "Travel" },
+            { "value": "office", "label": "Office" }
+          ]
+        },
+        {
+          "type": "collection_list",
+          "id": "subcollections",
+          "label": "Subcategories",
+          "limit": 12
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

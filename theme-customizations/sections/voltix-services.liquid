@@ -1,0 +1,66 @@
+{%- comment -%}
+  VOLTIX services strip (delivery, secure checkout, brands, support).
+  Only state services the store really offers.
+{%- endcomment -%}
+{%- capture vx_label -%}{% render 'voltix-text', value: section.settings.label, key: 'voltix.services_label' %}{%- endcapture -%}
+<section class="vx-section vx-services vx-wrap" aria-label="{{ vx_label | strip }}">
+  <ul class="vx-services__list" role="list">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign kt = 'voltix.sv' | append: forloop.index | append: '_title'
+        assign kx = 'voltix.sv' | append: forloop.index | append: '_text'
+      -%}
+      <li class="vx-service" {{ block.shopify_attributes }}>
+        <span class="vx-service__icon">{% render 'voltix-icon', icon: block.settings.icon %}</span>
+        <span>
+          <strong class="vx-service__title">{% render 'voltix-text', value: block.settings.title, key: kt %}</strong>
+          <span class="vx-service__text">{% render 'voltix-text', value: block.settings.text, key: kx %}</span>
+        </span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "VOLTIX services strip",
+  "tag": "div",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "label", "label": "Accessible label", "default": "Store services" }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "delivery",
+          "options": [
+            { "value": "delivery", "label": "Delivery" },
+            { "value": "shield", "label": "Secure" },
+            { "value": "badge", "label": "Brands" },
+            { "value": "support", "label": "Support" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Delivery across Kuwait" },
+        { "type": "text", "id": "text", "label": "Text", "default": "All governorates" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VOLTIX services strip",
+      "blocks": [
+        { "type": "service", "settings": { "icon": "delivery", "title": "Delivery across Kuwait", "text": "All governorates" } },
+        { "type": "service", "settings": { "icon": "shield", "title": "Secure checkout", "text": "Pay in KWD" } },
+        { "type": "service", "settings": { "icon": "badge", "title": "Genuine brands", "text": "Sony, Samsung, Apple and more" } },
+        { "type": "service", "settings": { "icon": "support", "title": "Customer support", "text": "English and Arabic" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

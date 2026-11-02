@@ -1,0 +1,14 @@
+{%- comment -%}
+  VOLTIX wishlist grid. Products are read from the shopper's browser by assets/voltix-wishlist.js.
+
+  Usage:
+  {% render 'voltix-wishlist-grid', empty_text: 'Your wishlist is empty.' %}
+{%- endcomment -%}
+{%- capture vx_empty -%}{% render 'voltix-text', value: empty_text, key: 'voltix.wishlist_empty' %}{%- endcapture -%}
+<voltix-wishlist-grid class="vx-wishlist" data-currency="{{ cart.currency.iso_code }}" data-label-remove="{{ 'voltix.remove' | t }}" data-illo-base="{{ 'vx-illo-gaming.svg' | asset_url | split: 'vx-illo-gaming.svg' | first }}">
+  <div class="vx-wishlist__empty" data-empty hidden>
+    <p>{{ vx_empty }}</p>
+    <a class="vx-btn" href="{{ routes.all_products_collection_url }}">{{ 'voltix.start_shopping' | t }}</a>
+  </div>
+  <ul class="vx-wishlist__grid" role="list" data-grid></ul>
+</voltix-wishlist-grid>
