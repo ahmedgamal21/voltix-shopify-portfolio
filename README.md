@@ -2,6 +2,9 @@
 
 A custom Shopify storefront for **VOLTIX**, a demonstration electronics and home-appliance retailer for Kuwait, built on Shopify's Horizon theme (Online Store 2.0). The work goes beyond styling: custom theme blocks, the Section Rendering API, the Product Recommendations API, the Cart AJAX API wired into Horizon's own cart events, metafield-driven specifications and full English / Arabic (RTL) support.
 
+**Live demo:** [voltix-kanuk8wf.myshopify.com](https://voltix-kanuk8wf.myshopify.com) — store password: `uttean`
+(Shopify development stores are always password-protected. Checkout is in test mode; no real orders are processed.)
+
 > **Portfolio project.** VOLTIX is a fictional store with demonstration data. Prices, stock and fulfilment terms are illustrative. Products without photography use original VOLTIX illustrations. Specifications only show data the store really holds — nothing is invented.
 
 ![VOLTIX homepage](docs/screenshots/01-homepage-hero.png)
