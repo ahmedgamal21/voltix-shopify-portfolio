@@ -21,14 +21,18 @@ index f8fc2db..05a0a58 100644
  
    {% if use_inverse_logo %}
 diff --git a/blocks/_product-card-gallery.liquid b/blocks/_product-card-gallery.liquid
-index 0d656f4..6caca2a 100644
+index 0d656f4..58e24fd 100644
 --- a/blocks/_product-card-gallery.liquid
 +++ b/blocks/_product-card-gallery.liquid
-@@ -4,6 +4,7 @@
+@@ -4,6 +4,11 @@
  
  {% capture children %}
    {% unless product == blank %}
-+    {% render 'voltix-wishlist-button', product: product %}
++    <div class="vx-card-tools">
++      {% render 'voltix-wishlist-button', product: product %}
++      {%- unless settings.vx_card_quick_view == false -%}{% render 'voltix-quick-view-button', product: product %}{%- endunless -%}
++      {%- unless settings.vx_card_compare == false -%}{% render 'voltix-compare-button', product: product %}{%- endunless -%}
++    </div>
      {%- if product.available == false or product.compare_at_price > product.price -%}
        <div
          class="product-badges product-badges--{{ settings.badge_position }}"
@@ -90,15 +94,67 @@ index 9a23d47..c27de8e 100644
    {% render 'variant-main-picker', product_resource: product_resource, section: section, product: product %}
  {% endunless %}
  
+diff --git a/config/settings_schema.json b/config/settings_schema.json
+index ea18fc6..0adfde2 100644
+--- a/config/settings_schema.json
++++ b/config/settings_schema.json
+@@ -2116,5 +2116,44 @@
+         "default": "equal-width-buttons"
+       }
+     ]
++  },
++  {
++    "name": "VOLTIX commerce",
++    "settings": [
++      {
++        "type": "header",
++        "content": "Cart"
++      },
++      {
++        "type": "number",
++        "id": "vx_free_shipping_threshold",
++        "label": "Free delivery threshold (KWD)",
++        "info": "Shows a progress bar in the cart. Use the same amount as the free rate in Settings → Shipping and delivery. 0 hides the bar.",
++        "default": 50
++      },
++      {
++        "type": "checkbox",
++        "id": "vx_cart_recommendations",
++        "label": "Show recommendations in the cart drawer",
++        "info": "Uses Shopify's Product Recommendations API. Complementary products can be set in the Search & Discovery app.",
++        "default": true
++      },
++      {
++        "type": "header",
++        "content": "Product cards"
++      },
++      {
++        "type": "checkbox",
++        "id": "vx_card_quick_view",
++        "label": "Show quick view button",
++        "default": true
++      },
++      {
++        "type": "checkbox",
++        "id": "vx_card_compare",
++        "label": "Show compare button",
++        "default": true
++      }
++    ]
+   }
+-]
+\ No newline at end of file
++]
 diff --git a/layout/theme.liquid b/layout/theme.liquid
-index 4e3b20e..559e2d5 100644
+index 4e3b20e..c6d3ac4 100644
 --- a/layout/theme.liquid
 +++ b/layout/theme.liquid
-@@ -23,6 +23,13 @@
+@@ -23,6 +23,14 @@
      {%- render 'scripts' -%}
      {%- render 'theme-styles-variables' -%}
      {%- render 'color-palette' -%}
 +    {{ 'voltix.css' | asset_url | stylesheet_tag }}
++    {{ 'voltix-commerce.css' | asset_url | stylesheet_tag }}
 +    <script src="{{ 'voltix-wishlist.js' | asset_url }}" defer="defer"></script>
 +    {%- if request.locale.direction == 'rtl' -%}
 +      <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,6 +164,25 @@ index 4e3b20e..559e2d5 100644
  
      {% if request.design_mode %}
        {%- render 'theme-editor' -%}
+@@ -172,5 +180,6 @@
+     {% if settings.quick_add or settings.mobile_quick_add %}
+       {% render 'quick-add-modal' %}
+     {% endif %}
++    {%- render 'voltix-compare-bar' -%}
+   </body>
+ </html>
+diff --git a/sections/main-cart.liquid b/sections/main-cart.liquid
+index d2d529b..34586ce 100644
+--- a/sections/main-cart.liquid
++++ b/sections/main-cart.liquid
+@@ -48,6 +48,7 @@
+       </div>
+ 
+       <div class="cart-page__items">
++        {% render 'voltix-free-shipping' %}
+         {%- content_for 'block', id: 'cart-page-items', type: '_cart-products' %}
+       </div>
+ 
 diff --git a/sections/main-page.liquid b/sections/main-page.liquid
 index e36ef47..2177905 100644
 --- a/sections/main-page.liquid
@@ -154,6 +229,37 @@ index ad46d86..c1ac08a 100644
    {% elsif product == blank %}
      {% liquid
        capture placeholder_image
+diff --git a/snippets/cart-drawer.liquid b/snippets/cart-drawer.liquid
+index b141f7d..0d66607 100644
+--- a/snippets/cart-drawer.liquid
++++ b/snippets/cart-drawer.liquid
+@@ -110,8 +110,10 @@
+                 class="cart-drawer__content"
+                 aria-label="{{ 'accessibility.cart' | t }}"
+               >
++                {% render 'voltix-free-shipping' %}
+                 <scroll-hint class="cart-drawer__items">
+                   {% render 'cart-products', context: 'drawer' %}
++                  {% render 'voltix-cart-recs' %}
+                 </scroll-hint>
+ 
+                 <div class="cart-drawer__summary">
+diff --git a/snippets/cart-products.liquid b/snippets/cart-products.liquid
+index 81a4c1f..97e4ac6 100644
+--- a/snippets/cart-products.liquid
++++ b/snippets/cart-products.liquid
+@@ -182,6 +182,11 @@
+                         echo item.image | image_url: width: 250 | image_tag: class: 'cart-items__media-image border-style', style: border_override
+                       -%}
+                     </a>
++                  {%- else -%}
++                    {%- comment -%} VOLTIX: department illustration for products without photos {%- endcomment -%}
++                    <a href="{{ item.url }}" class="cart-items__media-container vx-cart-thumb" style="--ratio:1;" tabindex="-1" aria-hidden="true">
++                      {% render 'voltix-product-placeholder', product: item.product, variant: 'pdp' %}
++                    </a>
+                   {%- endif %}
+                 </td>
+                 <td
 diff --git a/snippets/header-actions.liquid b/snippets/header-actions.liquid
 index 637bba5..2f5dbd8 100644
 --- a/snippets/header-actions.liquid

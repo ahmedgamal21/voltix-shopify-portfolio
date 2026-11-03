@@ -1,0 +1,31 @@
+{%- doc -%}
+  Fixed compare tray (bottom of the screen). Filled from the shopper's saved compare list.
+{%- enddoc -%}
+<script>
+  window.VoltixStrings = {
+    added: {{ 'voltix.added' | t | json }},
+    error: {{ 'voltix.error' | t | json }},
+    close: {{ 'voltix.close' | t | json }},
+    loading: {{ 'voltix.loading' | t | json }},
+    remove: {{ 'voltix.remove' | t | json }},
+    compare: {{ 'voltix.compare_heading' | t | json }},
+    compare_full: {{ 'voltix.compare_full' | t | json }},
+    quick_view: {{ 'voltix.quick_view' | t | json }}
+  };
+</script>
+<script src="{{ 'voltix-commerce.js' | asset_url }}" type="module" fetchpriority="low"></script>
+<vx-compare-bar class="vx-compare-bar" inert role="region" aria-label="{{ 'voltix.compare_heading' | t }}">
+  <div class="vx-compare-bar__inner">
+    <p class="vx-compare-bar__label">
+      {% render 'voltix-icon', icon: 'compare', size: 20 %}
+      <span>{{ 'voltix.compare_heading' | t }}</span>
+      <span class="vx-compare-bar__count" data-count>0</span>
+    </p>
+    <ul class="vx-compare-bar__items" data-items></ul>
+    <p class="vx-compare-bar__msg" data-message aria-live="polite"></p>
+    <div class="vx-compare-bar__actions">
+      <button type="button" class="vx-link" data-clear>{{ 'voltix.clear' | t }}</button>
+      <button type="button" class="vx-btn vx-btn--primary" data-open disabled>{{ 'voltix.compare_now' | t }}</button>
+    </div>
+  </div>
+</vx-compare-bar>

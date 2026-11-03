@@ -1,0 +1,20 @@
+{%- doc -%}
+  Wrapper for cart recommendations inside the cart drawer. `data-skip-node-update` keeps Horizon's
+  morph from wiping the fetched products; the element refreshes itself after each cart change.
+{%- enddoc -%}
+{%- if settings.vx_cart_recommendations != false and cart.item_count > 0 -%}
+  {%- liquid
+    assign dept = ''
+    for tag in cart.items.first.product.tags
+      if tag contains 'dept-'
+        assign dept = tag | remove_first: 'dept-'
+        break
+      endif
+    endfor
+  -%}
+  {%- capture in_cart -%}{%- for item in cart.items -%}{{ item.product_id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endcapture -%}
+  <vx-cart-recs class="vx-recs" data-product-id="{{ cart.items.first.product_id }}" data-in-cart="{{ in_cart }}" data-dept="{{ dept }}" data-skip-node-update hidden>
+    <p class="vx-recs__heading">{{ 'voltix.recs_heading' | t }}</p>
+    <ul class="vx-recs__list" data-recs></ul>
+  </vx-cart-recs>
+{%- endif -%}

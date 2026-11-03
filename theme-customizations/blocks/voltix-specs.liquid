@@ -1,0 +1,27 @@
+{%- comment -%} VOLTIX: key specifications from metafields and product data {%- endcomment -%}
+{%- assign product_resource = closest.product -%}
+{%- if product_resource != blank -%}
+  <div class="vx-block vx-specs-block" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank or block.settings.show_heading -%}
+      <h2 class="vx-block__title">{% render 'voltix-text', value: block.settings.heading, key: 'voltix.specs_heading' %}</h2>
+    {%- endif -%}
+    {% render 'voltix-specs-table', product: product_resource, limit: block.settings.limit %}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VOLTIX specifications",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Rows come from the JSON metafield voltix.specs (and voltix.specs_ar for Arabic), then brand, category, SKU, weight, delivery class and the voltix.warranty metafield."
+    },
+    { "type": "checkbox", "id": "show_heading", "label": "Show heading", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Leave empty to use the translated default." },
+    { "type": "range", "id": "limit", "label": "Maximum rows", "min": 3, "max": 20, "step": 1, "default": 10 }
+  ],
+  "presets": [{ "name": "VOLTIX specifications" }]
+}
+{% endschema %}

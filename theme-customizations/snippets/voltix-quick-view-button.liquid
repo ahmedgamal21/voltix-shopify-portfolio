@@ -1,0 +1,12 @@
+{%- doc -%}
+  Opens the VOLTIX quick view (rendered with the Section Rendering API).
+
+  @param {product} product - The product
+{%- enddoc -%}
+{%- if product != blank -%}
+  <vx-quick-view class="vx-qv-btn" data-handle="{{ product.handle }}">
+    <button type="button" aria-haspopup="dialog" aria-label="{{ 'voltix.quick_view_of' | t: title: product.title | escape }}">
+      {% render 'voltix-icon', icon: 'eye', size: 18 %}
+    </button>
+  </vx-quick-view>
+{%- endif -%}

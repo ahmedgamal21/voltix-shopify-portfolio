@@ -28,6 +28,27 @@
           <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
         {%- endfor -%}
       </nav>
+    {%- else -%}
+      {%- comment -%}
+        No Shopify menu chosen: build quick links from the collection list setting,
+        or from the first department blocks, so the bar is never empty.
+      {%- endcomment -%}
+      <nav class="vx-mega__quick" aria-label="{{ 'voltix.quick_links' | t }}">
+        {%- if section.settings.quick_collections != blank -%}
+          {%- for qc in section.settings.quick_collections -%}
+            <a href="{{ qc.url }}" {% if collection.handle == qc.handle %}aria-current="page"{% endif %}>{% render 'voltix-collection-title', collection: qc %}</a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign shown = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- assign qc = block.settings.collection -%}
+            {%- if block.type == 'department' and qc != blank and shown < section.settings.quick_count -%}
+              <a href="{{ qc.url }}" {% if collection.handle == qc.handle %}aria-current="page"{% endif %}>{% render 'voltix-collection-title', collection: qc %}</a>
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </nav>
     {%- endif -%}
 
     <a class="vx-mega__highlight" href="{{ section.settings.highlight_link | default: routes.all_products_collection_url }}">
@@ -125,6 +146,22 @@
       "id": "quick_links",
       "label": "Quick links next to the button",
       "info": "Optional. A short Shopify menu (6-8 links) shown on desktop."
+    },
+    {
+      "type": "collection_list",
+      "id": "quick_collections",
+      "label": "Or pick quick-link collections",
+      "limit": 8,
+      "info": "Used when no menu is chosen. Empty: the first departments below are used."
+    },
+    {
+      "type": "range",
+      "id": "quick_count",
+      "label": "Departments shown as quick links",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 5
     },
     {
       "type": "text",

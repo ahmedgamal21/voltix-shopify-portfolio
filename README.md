@@ -1,29 +1,56 @@
 # VOLTIX — Shopify Electronics Storefront
 
-A custom Shopify storefront for **VOLTIX**, a demonstration electronics and home-appliance retailer for Kuwait. Built on Shopify's Horizon theme with a custom brand layer, a 16-department mega menu, an app-free wishlist, original product illustrations and full English / Arabic (RTL) support.
+A custom Shopify storefront for **VOLTIX**, a demonstration electronics and home-appliance retailer for Kuwait, built on Shopify's Horizon theme (Online Store 2.0). The work goes beyond styling: custom theme blocks, the Section Rendering API, the Product Recommendations API, the Cart AJAX API wired into Horizon's own cart events, metafield-driven specifications and full English / Arabic (RTL) support.
 
-> **Portfolio project.** VOLTIX is a fictional store. Prices, stock and fulfilment terms are demonstration data. Product names are used for illustration only, and product images are original VOLTIX illustrations, not manufacturer photos.
+> **Portfolio project.** VOLTIX is a fictional store with demonstration data. Prices, stock and fulfilment terms are illustrative. Products without photography use original VOLTIX illustrations. Specifications only show data the store really holds — nothing is invented.
 
 ![VOLTIX homepage](docs/screenshots/01-homepage-hero.png)
 
-## Highlights
+## What it shows
 
-- **Mega menu for a large catalog** — 16 departments and 72 subcategories with product counts, an illustrated feature card, hover and keyboard navigation on desktop, and an accordion drawer on mobile. Every link comes from a collection picker in the theme editor, so there are no hard-coded URLs.
-- **English and Arabic** — copy lives in locale files (`voltix.*` keys), collection names are translated, and the layout uses logical CSS properties so it mirrors automatically in RTL. Noto Sans Arabic loads only on Arabic pages.
-- **Original illustration system** — 16 department illustrations in the brand palette, used for products without photos, the category grid, the hero and the mega menu.
-- **Wishlist without an app** — heart buttons on product cards and product pages, a header counter and a wishlist page, stored in the shopper's browser.
-- **Subcategory navigation** — collection pages show sibling subcategories as pills, generated from product tags.
-- **Brand layer on top of Horizon** — all custom code lives in `voltix-*` files; changes inside Horizon files are a few documented lines (see `theme-customizations/horizon-integration.patch`).
-- **Honest merchandising** — sale prices appear only when a real compare-at price exists; no fake countdowns or discounts.
-- **Accessible** — 44px touch targets, visible focus states, ARIA on menus, toggles and sliders, AA colour contrast, reduced-motion support.
+| Shopify skill | Where it is used |
+|---|---|
+| **Theme blocks with schemas** (OS 2.0) | Specifications, installments, delivery estimate, wishlist & compare and service badges are real blocks (`blocks/voltix-*.liquid`) that merchants add, reorder and configure in the theme editor |
+| **Metafields** | Specification table reads the JSON metafield `voltix.specs` (plus `voltix.specs_ar` for Arabic and `voltix.warranty`), then falls back to brand, category, SKU, weight and delivery class |
+| **Section Rendering API** | Quick view and every compare column are sections fetched with `?section_id=` — the same Liquid renders server-side, no duplicated templates in JavaScript |
+| **Product Recommendations API** | Cart drawer cross-sell: complementary products (Search & Discovery) → same department → related |
+| **Cart AJAX API + Horizon events** | One-click add to cart posts to `/cart/add.js` with `sections` and `sections_url`, then resolves Horizon's `CartLinesUpdateEvent`, so the drawer, cart count and animations update exactly like Horizon's own button |
+| **Variant-aware components** | Installments and delivery estimate listen to `ProductSelectEvent` and update when the variant changes |
+| **Cart-section rendering** | Free-delivery progress bar lives inside the cart section, so it re-renders with every cart change at no extra request |
+| **Localization** | All copy in locale files (`voltix.*`), translated collection titles, RTL with logical CSS properties, dates and countdowns formatted with `Intl` in the shopper's language |
+| **Theme settings** | A *VOLTIX commerce* settings group (free-delivery threshold, card buttons, cart recommendations) |
+| **Quality** | Theme Check with no errors, GitHub Actions CI, keyboard-accessible dialogs, reduced-motion support |
+
+## Features
+
+**Navigation**
+- Mega menu for 16 departments and 72 subcategories — hover and keyboard on desktop, accordion drawer on mobile, every link from collection pickers (no hard-coded URLs).
+- Quick links bar built from the department blocks when no Shopify menu is chosen.
+- Subcategory pills on collection pages, generated from product tags.
+
+**Product page**
+- Key specifications table from metafields and product data.
+- "Or 4 interest-free payments of …" message, variant-aware (enable it only when a pay-later provider is active).
+- Kuwait delivery estimate with a live cut-off countdown, Friday skipping and longer lead time for products tagged `ship-large-appliances` — calculated in Kuwait time.
+- Wishlist, compare and service badges as configurable blocks; Horizon's sticky add-to-cart bar.
+
+**Discovery**
+- Quick view dialog from any product card.
+- Compare up to 4 products: tray at the bottom of the screen, side-by-side table that lines up specification rows across products and highlights differences.
+- Wishlist without an app, with a header counter and a wishlist page.
+
+**Cart drawer**
+- Free-delivery progress bar (threshold in theme settings).
+- "Complete your setup" recommendations with one-click add.
+- Department illustrations for cart lines without photos.
+
+**Store setup**: Kuwait market, KWD, Asia/Kuwait time zone, English + Arabic, ~1,000 demonstration products, 88 tag-driven category collections (16 departments + 72 subcategories), shipping rates by product size.
 
 ## Screens
 
-| Desktop | |
-|---|---|
-| ![Mega menu](docs/screenshots/06-mega-menu.png) | ![Shop by category](docs/screenshots/02-shop-by-category.png) |
-| ![Collection page](docs/screenshots/07-collection-page.png) | ![Product page](docs/screenshots/08-product-page.png) |
-| ![Promotions](docs/screenshots/04-promos-and-products.png) | ![Footer](docs/screenshots/05-brands-newsletter-footer.png) |
+| Homepage | Mega menu | Collection page |
+|---|---|---|
+| ![Homepage](docs/screenshots/02-shop-by-category.png) | ![Mega menu](docs/screenshots/06-mega-menu.png) | ![Collection page](docs/screenshots/07-collection-page.png) |
 
 | Arabic (RTL) | Mobile | Mobile menu |
 |---|---|---|
@@ -31,52 +58,51 @@ A custom Shopify storefront for **VOLTIX**, a demonstration electronics and home
 
 Full homepage: [`docs/screenshots/00-homepage-overview.png`](docs/screenshots/00-homepage-overview.png)
 
-## Store setup
+## How it fits into Horizon
 
-| | |
-|---|---|
-| Market | Kuwait · KWD · Asia/Kuwait time zone |
-| Languages | English (default) and Arabic |
-| Catalog | About 1,000 demonstration products |
-| Collections | 88 automated collections (16 departments, 72 subcategories) driven by product tags (`dept-*`, `sub-*`) |
-| Shipping | Rules by product size (standard and large appliances) |
-
-## Tech stack
-
-Shopify Online Store 2.0 · Horizon theme · Liquid · JSON templates · Web Components (vanilla JavaScript) · CSS custom properties and logical properties · Shopify CLI · Theme Check · Git
-
-## Repository layout
+Horizon stays the base theme. Everything VOLTIX lives in `voltix-*` files, and the edits inside Horizon files are small and documented in [`theme-customizations/horizon-integration.patch`](theme-customizations/horizon-integration.patch) (loading the CSS/JS, card tools, cart drawer hooks, translated titles).
 
 ```
 theme-customizations/
-  assets/          voltix.css, voltix-mega-menu.js, voltix-wishlist.js, voltix-hero.js, illustrations (vx-illo-*.svg), logos
-  sections/        hero, announcements, mega menu, category grid, services, promo banners, brands,
-                   newsletter, footer, collection subcategory links, wishlist
-  snippets/        icon set, translated text helper, collection title helper, wishlist button and grid, product placeholder
-  templates/       page.wishlist.json
-  locales/         en.voltix.json, ar.voltix.json (merge into the theme's locale files)
-  config-snippets/ ready-made section settings for the homepage, header group and footer group
-  horizon-integration.patch   the small edits made inside Horizon files
-docs/
-  screenshots/     store screenshots
-  collections.csv, mega-menu-structure.json
+  assets/      voltix.css, voltix-commerce.css
+               voltix-commerce.js  compare, quick view, quick add, cart recommendations
+               voltix-pdp.js       installments + delivery estimate
+               voltix-mega-menu.js, voltix-wishlist.js, voltix-hero.js
+               vx-illo-*.svg       16 department illustrations
+  blocks/      voltix-specs, voltix-installments, voltix-delivery, voltix-actions, voltix-service-badges
+  sections/    hero, announcements, mega menu, category grid, services, promo banners, brands, newsletter,
+               footer, collection links, wishlist, quick view*, compare column*, cart recommendations*
+  snippets/    specs table, free-delivery bar, compare bar and button, quick add / quick view buttons,
+               product thumb, icons, translated text and collection titles, wishlist, placeholders
+  templates/   page.wishlist.json
+  locales/     en.voltix.json, ar.voltix.json
+  config-snippets/  ready-made settings for the homepage, header, footer and product page
+  horizon-integration.patch
+docs/          screenshots, collections.csv, mega-menu-structure.json
 ```
+\* rendered only through the Section Rendering API.
 
-The full theme (Horizon plus these files) is kept in a private repository. Horizon's licence allows modifying it for Shopify stores but not redistributing derived themes, so only the original VOLTIX code is published here.
+The full theme (Horizon plus these files) is in a private repository with a GitHub Actions workflow that runs Theme Check on every push. Horizon's licence allows modifying it for Shopify stores but not redistributing derived themes, so only the original VOLTIX code is published here.
 
 ## Using the customizations in a Horizon theme
 
-1. Copy the files from `theme-customizations/assets`, `sections`, `snippets` and `templates` into the theme.
+1. Copy `assets`, `blocks`, `sections`, `snippets` and `templates` into the theme.
 2. Merge `locales/en.voltix.json` into `locales/en.default.json` and `locales/ar.voltix.json` into `locales/ar.json`.
-3. Apply `horizon-integration.patch` (loads the CSS and scripts, adds the wishlist icon, placeholder and translated titles).
-4. Add the sections in the theme editor, or paste the objects from `config-snippets/`.
-5. Preview with `shopify theme dev --store <store>.myshopify.com`.
+3. Apply `horizon-integration.patch`.
+4. Add the blocks to the product template in the theme editor (or paste `config-snippets/product__main.json`), and the sections to the homepage.
+5. Optional: create the product metafields `voltix.specs` (JSON), `voltix.specs_ar` (JSON) and `voltix.warranty` (single-line text).
+6. Preview with `shopify theme dev --store <store>.myshopify.com`.
 
 ## Key decisions
 
-- **Collection pickers instead of a navigation API.** The mega menu is configured in the theme editor with collection and collection-list settings, which needs no extra app permissions and keeps product counts live.
-- **Locale-first copy.** Section text settings fall back to translated locale strings when empty, so the store works in both languages out of the box and merchants can still override text.
-- **Illustrations over stock photos.** The demo catalog has no product photography; brand-consistent illustrations keep the store looking finished without using manufacturer images.
+- **Server-rendered pieces, small JavaScript.** Quick view, compare columns and recommendations are Liquid sections fetched with the Section Rendering API, so markup, translations and money formatting stay in one place.
+- **Work with Horizon, not around it.** Quick add resolves Horizon's `CartLinesUpdateEvent` instead of reloading the cart, so every Horizon component keeps working.
+- **Collection pickers instead of a navigation API.** No extra app permissions, and product counts stay live.
+- **Honest merchandising.** Sale prices only when a real compare-at price exists, installments only as a configurable block, specifications only from real data.
+
+## Tech stack
+
+Shopify Online Store 2.0 · Horizon · Liquid · theme blocks · JSON templates · Section Rendering API · Product Recommendations API · Cart AJAX API · metafields · Web Components (vanilla JavaScript modules) · CSS custom and logical properties · Shopify CLI · Theme Check · GitHub Actions
 
 ## Author
 

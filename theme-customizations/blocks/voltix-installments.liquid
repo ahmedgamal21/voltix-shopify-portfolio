@@ -1,0 +1,48 @@
+{%- comment -%} VOLTIX: "or N interest-free payments of X" message, updates when the variant changes {%- endcomment -%}
+{%- liquid
+  assign product_resource = closest.product
+  assign variant = product_resource.selected_or_first_available_variant
+  assign count = block.settings.count
+  assign min_price = block.settings.min_price | times: 100
+  assign installment = variant.price | times: 1.0 | divided_by: count | ceil
+  assign installment_money = installment | money
+-%}
+{%- if product_resource != blank -%}
+  <script src="{{ 'voltix-pdp.js' | asset_url }}" type="module" fetchpriority="low"></script>
+  <vx-installments
+    class="vx-block vx-installments"
+    data-count="{{ count }}"
+    data-min="{{ min_price }}"
+    data-decimals="{% if cart.currency.iso_code == 'KWD' or cart.currency.iso_code == 'BHD' or cart.currency.iso_code == 'OMR' %}3{% else %}2{% endif %}"
+    data-money-format="{{ shop.money_format | escape }}"
+    {% if variant.price < min_price %}hidden{% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {% render 'voltix-icon', icon: 'card', size: 20 %}
+    <p>
+      {{ 'voltix.installments_html' | t: count: count, amount: installment_money }}
+      {%- if block.settings.note != blank -%}
+        <small>{{ block.settings.note | escape }}</small>
+      {%- else -%}
+        <small>{{ 'voltix.installments_note' | t }}</small>
+      {%- endif -%}
+    </p>
+  </vx-installments>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VOLTIX installments",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows the price split into equal payments. Turn it on only when a buy-now-pay-later provider is active at checkout."
+    },
+    { "type": "range", "id": "count", "label": "Number of payments", "min": 2, "max": 6, "step": 1, "default": 4 },
+    { "type": "number", "id": "min_price", "label": "Minimum price (whole currency units)", "default": 20 },
+    { "type": "text", "id": "note", "label": "Note under the message", "info": "For example the provider name. Leave empty for the translated default." }
+  ],
+  "presets": [{ "name": "VOLTIX installments" }]
+}
+{% endschema %}

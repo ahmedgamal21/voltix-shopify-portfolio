@@ -1,0 +1,100 @@
+{%- doc -%}
+  Key specifications table for a product.
+
+  Rows come from two places, in this order:
+  1. The JSON metafield `voltix.specs` (for example {"Screen size": "65 in", "Resolution": "4K UHD"}).
+     An Arabic version can be stored in `voltix.specs_ar` and is used on Arabic pages.
+  2. Facts Shopify already knows: brand, category (from the sub-* tag), product type, SKU, weight,
+     delivery class (from the ship-large-appliances tag) and warranty (`voltix.warranty` metafield).
+  No specification is ever invented: a row only renders when its data exists.
+
+  @param {product} product - The product to describe
+  @param {variant} [variant] - The selected variant (defaults to the selected or first available one)
+  @param {number} [limit] - Maximum number of rows (default 12)
+  @param {boolean} [compact] - Smaller layout for quick view and compare
+
+  @example
+  {% render 'voltix-specs-table', product: product, limit: 8 %}
+{%- enddoc -%}
+{%- liquid
+  assign variant = variant | default: product.selected_or_first_available_variant
+  assign limit = limit | default: 12
+  assign rows = 0
+
+  assign custom_specs = product.metafields.voltix.specs.value
+  if request.locale.iso_code == 'ar' and product.metafields.voltix.specs_ar.value != blank
+    assign custom_specs = product.metafields.voltix.specs_ar.value
+  endif
+
+  assign category = blank
+  for tag in product.tags
+    if tag contains 'sub-'
+      assign sub_handle = tag | remove_first: 'sub-'
+      assign category = collections[sub_handle]
+      break
+    endif
+  endfor
+
+  assign model = product.title | remove_first: product.vendor | strip
+-%}
+<dl class="vx-specs{% if compact %} vx-specs--compact{% endif %}">
+  {%- if custom_specs != blank -%}
+    {%- for spec in custom_specs -%}
+      {%- if rows >= limit -%}{%- break -%}{%- endif -%}
+      <div class="vx-specs__row"><dt>{{ spec[0] | escape }}</dt><dd>{{ spec[1] | escape }}</dd></div>
+      {%- assign rows = rows | plus: 1 -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if product.vendor != blank and rows < limit -%}
+    <div class="vx-specs__row">
+      <dt>{{ 'voltix.spec_brand' | t }}</dt>
+      <dd>{{ product.vendor | link_to_vendor }}</dd>
+    </div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- endif -%}
+
+  {%- if model != blank and model != product.title and rows < limit -%}
+    <div class="vx-specs__row"><dt>{{ 'voltix.spec_model' | t }}</dt><dd>{{ model | escape }}</dd></div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- endif -%}
+
+  {%- if category != blank and rows < limit -%}
+    <div class="vx-specs__row">
+      <dt>{{ 'voltix.spec_category' | t }}</dt>
+      <dd><a href="{{ category.url }}">{% render 'voltix-collection-title', collection: category %}</a></dd>
+    </div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- elsif product.type != blank and rows < limit -%}
+    <div class="vx-specs__row"><dt>{{ 'voltix.spec_type' | t }}</dt><dd>{{ product.type | escape }}</dd></div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- endif -%}
+
+  {%- if variant.sku != blank and rows < limit -%}
+    <div class="vx-specs__row"><dt>{{ 'voltix.spec_sku' | t }}</dt><dd data-vx-sku>{{ variant.sku | escape }}</dd></div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- endif -%}
+
+  {%- if variant.weight > 0 and rows < limit -%}
+    <div class="vx-specs__row"><dt>{{ 'voltix.spec_weight' | t }}</dt><dd>{{ variant.weight | weight_with_unit: variant.weight_unit }}</dd></div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- endif -%}
+
+  {%- if rows < limit -%}
+    <div class="vx-specs__row">
+      <dt>{{ 'voltix.spec_delivery' | t }}</dt>
+      <dd>
+        {%- if product.tags contains 'ship-large-appliances' -%}
+          {{ 'voltix.spec_delivery_large' | t }}
+        {%- else -%}
+          {{ 'voltix.spec_delivery_standard' | t }}
+        {%- endif -%}
+      </dd>
+    </div>
+    {%- assign rows = rows | plus: 1 -%}
+  {%- endif -%}
+
+  {%- if product.metafields.voltix.warranty != blank and rows < limit -%}
+    <div class="vx-specs__row"><dt>{{ 'voltix.spec_warranty' | t }}</dt><dd>{{ product.metafields.voltix.warranty | escape }}</dd></div>
+  {%- endif -%}
+</dl>

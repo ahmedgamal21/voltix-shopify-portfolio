@@ -1,0 +1,12 @@
+{%- doc -%}
+  Product image for VOLTIX dialogs and lists: the featured photo, or the department illustration.
+
+  @param {product} product - The product
+  @param {number} [width] - Rendered width in pixels (default 400)
+{%- enddoc -%}
+{%- assign width = width | default: 400 -%}
+{%- if product.featured_media != blank -%}
+  {{ product.featured_media | image_url: width: width | image_tag: loading: 'lazy', class: 'vx-thumb__img', alt: product.featured_media.alt | default: product.title, sizes: width | append: 'px' }}
+{%- else -%}
+  {% render 'voltix-product-placeholder', product: product, variant: 'pdp' %}
+{%- endif -%}

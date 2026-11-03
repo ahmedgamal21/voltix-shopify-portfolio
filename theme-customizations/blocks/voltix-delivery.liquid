@@ -1,0 +1,54 @@
+{%- comment -%} VOLTIX: Kuwait delivery estimate with a same-day cut-off countdown {%- endcomment -%}
+{%- liquid
+  assign product_resource = closest.product
+  assign is_large = false
+  if product_resource.tags contains 'ship-large-appliances'
+    assign is_large = true
+  endif
+  if is_large
+    assign days = block.settings.large_days
+  else
+    assign days = block.settings.standard_days
+  endif
+-%}
+{%- if product_resource != blank -%}
+  <script src="{{ 'voltix-pdp.js' | asset_url }}" type="module" fetchpriority="low"></script>
+  <vx-delivery-eta
+    class="vx-block vx-delivery"
+    data-days="{{ days }}"
+    data-cutoff="{{ block.settings.cutoff_hour }}"
+    data-skip-friday="{{ block.settings.skip_friday }}"
+    data-timezone="Asia/Kuwait"
+    data-available="{{ product_resource.selected_or_first_available_variant.available }}"
+    {{ block.shopify_attributes }}
+  >
+    {% render 'voltix-icon', icon: 'delivery', size: 20 %}
+    <div>
+      <p class="vx-delivery__title" ref="title">
+        {%- if is_large -%}{{ 'voltix.eta_large' | t }}{%- else -%}{{ 'voltix.eta_standard' | t }}{%- endif -%}
+      </p>
+      <p class="vx-delivery__date" data-eta-text aria-live="polite"></p>
+      <template data-eta-template>{{ 'voltix.eta_html' | t: date: '[date]', time: '[time]' }}</template>
+      <template data-eta-template-late>{{ 'voltix.eta_late_html' | t: date: '[date]' }}</template>
+      <template data-eta-oos>{{ 'voltix.eta_unavailable' | t }}</template>
+    </div>
+  </vx-delivery-eta>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VOLTIX delivery estimate",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Products tagged ship-large-appliances use the large-item delivery time. Times are calculated in Kuwait time."
+    },
+    { "type": "range", "id": "cutoff_hour", "label": "Order cut-off (24h, Kuwait time)", "min": 8, "max": 22, "step": 1, "default": 14 },
+    { "type": "range", "id": "standard_days", "label": "Standard items: days after cut-off", "min": 0, "max": 7, "step": 1, "default": 1 },
+    { "type": "range", "id": "large_days", "label": "Large appliances: days after cut-off", "min": 1, "max": 10, "step": 1, "default": 3 },
+    { "type": "checkbox", "id": "skip_friday", "label": "No deliveries on Friday", "default": true }
+  ],
+  "presets": [{ "name": "VOLTIX delivery estimate" }]
+}
+{% endschema %}

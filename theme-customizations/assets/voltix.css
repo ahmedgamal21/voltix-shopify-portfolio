@@ -411,7 +411,7 @@ voltix-wishlist-count[hidden] { display: none; }
 
 /* ---------- Header logo fallback ---------- */
 .vx-logo-fallback { height: var(--vx-logo-h, 40px) !important; width: auto !important; max-width: none !important; display: block; }
-@media (max-width: 749px) { .vx-logo-fallback { height: var(--vx-logo-h-m, 30px) !important; } }
+@media (max-width: 749px) { .vx-logo-fallback { height: min(var(--vx-logo-h-m, 30px), 6.4vw) !important; } }
 
 /* ---------- Header wishlist icon ---------- */
 .vx-header-wish { position: relative; display: inline-flex; align-items: center; justify-content: center; color: inherit; }

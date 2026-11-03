@@ -1,0 +1,22 @@
+{%- comment -%} VOLTIX: service badges under the buy buttons {%- endcomment -%}
+<div class="vx-block vx-pdp-services" {{ block.shopify_attributes }}>
+  <span>{% render 'voltix-icon', icon: 'delivery', size: 20 %} {% render 'voltix-text', value: block.settings.badge_1, key: 'voltix.pdp_delivery' %}</span>
+  <span>{% render 'voltix-icon', icon: 'shield', size: 20 %} {% render 'voltix-text', value: block.settings.badge_2, key: 'voltix.pdp_secure' %}</span>
+  {%- if block.settings.show_returns -%}
+    <span>{% render 'voltix-icon', icon: 'returns', size: 20 %} {% render 'voltix-text', value: block.settings.badge_3, key: 'voltix.pdp_returns' %}</span>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "VOLTIX service badges",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "badge_1", "label": "Badge 1", "info": "Empty uses the translated default." },
+    { "type": "text", "id": "badge_2", "label": "Badge 2" },
+    { "type": "checkbox", "id": "show_returns", "label": "Show returns badge", "default": true },
+    { "type": "text", "id": "badge_3", "label": "Badge 3" }
+  ],
+  "presets": [{ "name": "VOLTIX service badges" }]
+}
+{% endschema %}

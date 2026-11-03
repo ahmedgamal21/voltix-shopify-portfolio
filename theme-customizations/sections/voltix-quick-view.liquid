@@ -1,0 +1,32 @@
+{%- comment -%}
+  VOLTIX quick view. Not placed on any template: it is fetched with the Section Rendering API
+  (/products/<handle>?section_id=voltix-quick-view) and shown in a dialog.
+{%- endcomment -%}
+{%- if product != blank -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+  <div class="vx-qv">
+    <div class="vx-qv__media">{% render 'voltix-product-thumb', product: product, width: 640 %}</div>
+    <div class="vx-qv__info">
+      {%- if product.vendor != blank -%}<p class="vx-qv__vendor">{{ product.vendor | escape }}</p>{%- endif -%}
+      <h2 class="vx-qv__title" tabindex="-1">{{ product.title | escape }}</h2>
+      <p class="vx-qv__price">
+        <span class="vx-price{% if variant.compare_at_price > variant.price %} vx-price--sale{% endif %}">{{ variant.price | money }}</span>
+        {%- if variant.compare_at_price > variant.price -%}
+          <s class="vx-price__was">{{ variant.compare_at_price | money }}</s>
+          {%- assign saving = variant.compare_at_price | minus: variant.price | money -%}
+          <span class="vx-tag">{{ 'voltix.save_amount' | t: amount: saving }}</span>
+        {%- endif -%}
+      </p>
+      {% render 'voltix-specs-table', product: product, limit: 6, compact: true %}
+      <div class="vx-qv__actions">
+        {% render 'voltix-quick-add-button', product: product, style: 'primary' %}
+        {% render 'voltix-compare-button', product: product, with_label: true %}
+      </div>
+      <a class="vx-link" href="{{ product.url }}">{{ 'voltix.view_details' | t }} →</a>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{ "name": "VOLTIX quick view", "tag": "div", "class": "vx-qv-section" }
+{% endschema %}

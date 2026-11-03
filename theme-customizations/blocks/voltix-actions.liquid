@@ -1,0 +1,27 @@
+{%- comment -%} VOLTIX: wishlist + compare buttons for the product page {%- endcomment -%}
+{%- assign product_resource = closest.product -%}
+{%- if product_resource != blank -%}
+  <div class="vx-block vx-pdp-actions" {{ block.shopify_attributes }}>
+    {%- if block.settings.show_wishlist -%}
+      <div class="vx-pdp-wish">
+        {% render 'voltix-wishlist-button', product: product_resource %}
+        <span>{{ 'voltix.save_to_wishlist' | t }}</span>
+      </div>
+    {%- endif -%}
+    {%- if block.settings.show_compare -%}
+      {% render 'voltix-compare-button', product: product_resource, with_label: true %}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VOLTIX wishlist & compare",
+  "tag": null,
+  "settings": [
+    { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist", "default": true },
+    { "type": "checkbox", "id": "show_compare", "label": "Show compare", "default": true }
+  ],
+  "presets": [{ "name": "VOLTIX wishlist & compare" }]
+}
+{% endschema %}

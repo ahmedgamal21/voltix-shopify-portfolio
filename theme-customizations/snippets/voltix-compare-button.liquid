@@ -1,0 +1,32 @@
+{%- doc -%}
+  Toggle that adds or removes a product from the VOLTIX compare tray (up to 4 products).
+
+  @param {product} product - The product
+  @param {boolean} [with_label] - Show the text label next to the icon
+{%- enddoc -%}
+{%- if product != blank -%}
+  {%- liquid
+    assign image = ''
+    if product.featured_media != blank
+      assign image = product.featured_media | image_url: width: 120
+    else
+      for tag in product.tags
+        if tag contains 'dept-'
+          assign image = 'vx-illo-' | append: tag | remove_first: 'dept-' | append: '.svg' | asset_url
+          break
+        endif
+      endfor
+    endif
+  -%}
+  <vx-compare-button
+    class="vx-compare-btn{% if with_label %} vx-compare-btn--label{% endif %}"
+    data-handle="{{ product.handle }}"
+    data-title="{{ product.title | escape }}"
+    data-image="{{ image }}"
+  >
+    <button type="button" aria-pressed="false" aria-label="{{ 'voltix.compare_toggle' | t: title: product.title | escape }}">
+      {% render 'voltix-icon', icon: 'compare', size: 18 %}
+      {%- if with_label -%}<span>{{ 'voltix.compare' | t }}</span>{%- endif -%}
+    </button>
+  </vx-compare-button>
+{%- endif -%}

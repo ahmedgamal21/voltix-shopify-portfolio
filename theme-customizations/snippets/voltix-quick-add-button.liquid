@@ -1,0 +1,20 @@
+{%- doc -%}
+  One-click add to cart for products with a single purchasable variant.
+  Products with several variants get a link to the product page instead.
+
+  @param {product} product - The product
+  @param {string} [style] - 'primary' (full button) or 'compact' (default)
+{%- enddoc -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.variants.size == 1 and variant.available -%}
+  <vx-quick-add class="vx-quick-add vx-quick-add--{{ style | default: 'compact' }}" data-variant-id="{{ variant.id }}">
+    <button type="button" class="vx-btn{% if style == 'primary' %} vx-btn--primary{% else %} vx-btn--outline{% endif %}">
+      {% render 'voltix-icon', icon: 'plus', size: 16 %}
+      <span data-label>{{ 'voltix.add_to_cart' | t }}</span>
+    </button>
+  </vx-quick-add>
+{%- elsif variant.available -%}
+  <a class="vx-btn vx-btn--outline" href="{{ product.url }}">{{ 'voltix.choose_options' | t }}</a>
+{%- else -%}
+  <span class="vx-btn vx-btn--disabled" aria-disabled="true">{{ 'voltix.sold_out' | t }}</span>
+{%- endif -%}

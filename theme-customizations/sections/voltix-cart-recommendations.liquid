@@ -1,0 +1,30 @@
+{%- comment -%}
+  Cart drawer cross-sell. Rendered through the Product Recommendations API:
+  /recommendations/products?product_id=<id>&intent=complementary&section_id=voltix-cart-recommendations
+  or, as a fallback, /collections/<department>?section_id=voltix-cart-recommendations
+  Order: complementary (curated in the Search & Discovery app) → same department → related.
+{%- endcomment -%}
+{%- liquid
+  if recommendations.performed and recommendations.products_count > 0
+    assign rec_products = recommendations.products
+  elsif collection != blank
+    assign rec_products = collection.products
+  endif
+-%}
+{%- if rec_products != blank -%}
+  {%- for rec in rec_products limit: 8 -%}
+    {%- unless rec.available -%}{%- continue -%}{%- endunless -%}
+    <li class="vx-rec" data-rec-card data-product-id="{{ rec.id }}">
+      <a href="{{ rec.url }}" class="vx-rec__media" tabindex="-1" aria-hidden="true">{% render 'voltix-product-thumb', product: rec, width: 160 %}</a>
+      <div class="vx-rec__info">
+        <a href="{{ rec.url }}" class="vx-rec__title">{{ rec.title | escape }}</a>
+        <span class="vx-rec__price">{{ rec.price | money }}</span>
+      </div>
+      {% render 'voltix-quick-add-button', product: rec %}
+    </li>
+  {%- endfor -%}
+{%- endif -%}
+
+{% schema %}
+{ "name": "VOLTIX cart recs", "tag": "div" }
+{% endschema %}

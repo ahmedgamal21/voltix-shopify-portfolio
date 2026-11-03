@@ -1,0 +1,36 @@
+{%- doc -%}
+  Free-delivery progress bar for the cart drawer and cart page.
+  Rendered inside the cart section, so Horizon re-renders it with every cart change.
+  Threshold: Theme settings → VOLTIX commerce (match it to the free rate in Settings → Shipping).
+{%- enddoc -%}
+{%- liquid
+  assign threshold_units = settings.vx_free_shipping_threshold
+  if threshold_units == nil
+    assign threshold_units = 50
+  endif
+  assign threshold = threshold_units | times: 100
+  assign total = cart.items_subtotal_price
+  assign remaining = threshold | minus: total
+  assign remaining_money = remaining | money
+  if threshold > 0
+    assign progress = total | times: 100 | divided_by: threshold
+    if progress > 100
+      assign progress = 100
+    endif
+  endif
+-%}
+{%- if threshold > 0 and cart.item_count > 0 -%}
+  <div class="vx-ship{% if remaining <= 0 %} is-complete{% endif %}" role="status">
+    <p class="vx-ship__text">
+      {% render 'voltix-icon', icon: 'truck-fast', size: 18 %}
+      {%- if remaining > 0 -%}
+        <span>{{ 'voltix.ship_remaining_html' | t: amount: remaining_money }}</span>
+      {%- else -%}
+        <span>{{ 'voltix.ship_unlocked' | t }}</span>
+      {%- endif -%}
+    </p>
+    <div class="vx-ship__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress }}" aria-label="{{ 'voltix.ship_progress' | t }}">
+      <span style="--vx-progress: {{ progress }}%"></span>
+    </div>
+  </div>
+{%- endif -%}
