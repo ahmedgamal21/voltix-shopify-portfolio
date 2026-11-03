@@ -6,7 +6,7 @@
 {%- liquid
   assign threshold_units = settings.vx_free_shipping_threshold
   if threshold_units == nil
-    assign threshold_units = 50
+    assign threshold_units = 100
   endif
   assign threshold = threshold_units | times: 100
   assign total = cart.items_subtotal_price
