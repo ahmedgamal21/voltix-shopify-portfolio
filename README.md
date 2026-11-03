@@ -51,6 +51,18 @@ A custom Shopify storefront for **VOLTIX**, a demonstration electronics and home
 
 ## Screens
 
+**New features (mobile)**
+
+| Product page | Quick view | Compare |
+|---|---|---|
+| ![Product page blocks](docs/screenshots/mobile/07-pdp-blocks.jpg) | ![Quick view](docs/screenshots/mobile/04-quickview.jpg) | ![Compare](docs/screenshots/mobile/05-compare.jpg) |
+
+| Cart drawer | Arabic product page | Arabic cart |
+|---|---|---|
+| ![Cart drawer](docs/screenshots/mobile/09-cart.jpg) | ![Arabic product page](docs/screenshots/mobile/11-ar-pdp.jpg) | ![Arabic cart](docs/screenshots/mobile/12-ar-cart.jpg) |
+
+**Desktop**
+
 | Homepage | Mega menu | Collection page |
 |---|---|---|
 | ![Homepage](docs/screenshots/02-shop-by-category.png) | ![Mega menu](docs/screenshots/06-mega-menu.png) | ![Collection page](docs/screenshots/07-collection-page.png) |
