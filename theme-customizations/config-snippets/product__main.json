@@ -331,7 +331,7 @@
           "settings": {
             "show_heading": true,
             "heading": "",
-            "limit": 10
+            "limit": 12
           },
           "blocks": {}
         }

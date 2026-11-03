@@ -75,7 +75,8 @@
     {%- assign rows = rows | plus: 1 -%}
   {%- endif -%}
 
-  {%- if variant.weight > 0 and rows < limit -%}
+  {%- comment -%} Shipping weight only when no real specifications exist, so it never contradicts a product weight {%- endcomment -%}
+  {%- if variant.weight > 0 and rows < limit and custom_specs == blank -%}
     <div class="vx-specs__row"><dt>{{ 'voltix.spec_weight' | t }}</dt><dd>{{ variant.weight | weight_with_unit: variant.weight_unit }}</dd></div>
     {%- assign rows = rows | plus: 1 -%}
   {%- endif -%}
